@@ -1,0 +1,11 @@
+Model Information:
+* title:	Armchair Patricia
+* source:	https://sketchfab.com/3d-models/armchair-patricia-31570071aa0c4901bc7a1841f1e51844
+* author:	VirtualBG (https://sketchfab.com/undereality)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Armchair Patricia" (https://sketchfab.com/3d-models/armchair-patricia-31570071aa0c4901bc7a1841f1e51844) by VirtualBG (https://sketchfab.com/undereality) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
