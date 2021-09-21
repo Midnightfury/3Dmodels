@@ -14,16 +14,19 @@
 
             window.switchModel = (element, name) => {
                 if (name === "Office_Chair") {
-                    modelViewer.src = "https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf";
-                    modelViewer.alt = "A 3D model of a Recliner";
+                    $("model-viewer").attr("src", "https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf");
+                    $("model-viewer").attr("ios-src", "https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2FOffice_chair.usdz?v=1632226475318");
+                    $("model-viewer").attr("alt", "A model of an Office Chair");
 
-                } else if (name === "Chair") {
-                    modelViewer.src = "https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/chair/scene.gltf";
-                    modelViewer.alt = "A 3D model of a Chair";
+                } else if (name === "Armchair") {
+                    $("model-viewer").attr("src", "https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/Armchair/scene.gltf");
+                    $("model-viewer").attr("ios-src", "https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2FArmchair.usdz?v=1632228637157");
+                    $("model-viewer").attr("alt", "A model of an Armchair");
 
                 } else if (name === "Sofa") {
-                    modelViewer.src = "https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/furniture_set/scene.gltf";
-                    modelViewer.alt = "A 3D model of a Sofa Set";
+                    $("model-viewer").attr("src", "https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/furniture_set/scene.gltf");
+                    $("model-viewer").attr("ios-src", "https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2FFurniture_Set.usdz?v=1632228684803");
+                    $("model-viewer").attr("alt", "A model of a Sofa Set");
                 }
 
                 const slides = document.querySelectorAll(".slide");
@@ -142,7 +145,7 @@
         <div class="slider">
             <div class="slides">
                 <button class="slide selected" onclick="switchModel(this, 'Office_Chair')" style="background-image: url('https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2Foffice_chair.JPG?v=1632224584000'); cursor: pointer;"></button>
-                <button class="slide" onclick="switchModel(this, 'Chair')" style="background-image: url('https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2Fchair.jpg?v=1631703601491'); cursor: pointer;"></button>
+                <button class="slide" onclick="switchModel(this, 'Armchair')" style="background-image: url('https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2Farmchair.JPG?v=1632228683388'); cursor: pointer;"></button>
                 <button class="slide" onclick="switchModel(this, 'Sofa')" style="background-image: url('https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2Fsofa_set.jpg?v=1631703609130'); cursor: pointer;"></button>
             </div>
         </div>
