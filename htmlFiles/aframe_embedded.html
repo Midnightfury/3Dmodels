@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+    <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <a-scene iframe-inner xrweb xrextras-gesture-detector xrextras-almost-there xrextras-loading xrextras-runtime-error xrextras-tap-recenter inspector keyboard-shortcuts screenshot>
+
+        <a-assets>
+            <a-asset-item id="office_chair" src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf"></a-asset-item>
+        </a-assets>
+
+        <a-camera id="camera" position="0 8 8" raycaster="objects: .cantap" cursor="fuse: false; rayOrigin: mouse;" camera rotation look-controls wasd-controls></a-camera>
+
+        <a-entity light="type: directional;
+                        castShadow: true;
+                        intensity: 0.8; 
+                        shadowCameraTop: 10;
+                        shadowMapHeight: 2048; 
+                        shadowMapWidth: 2048;
+                        target: #model;" xrextras-attach="target: model; offset: 1 15 3" shadow>
+        </a-entity>
+        <a-light type="ambient" intensity="1"></a-light>
+
+        <a-entity id="model" gltf-model="#office_chair" class="cantap" xrextras-hold-drag xrextras-two-finger-rotate xrextras-pinch-scale scale="1 1 1" shadow="receive: false"></a-entity>
+
+        <a-plane id="ground" rotation="-90 0 0" width="1000" height="1000" material="shader: shadow" shadow geometry></a-plane>
+    </a-scene>
+</body>
+
+</html>
