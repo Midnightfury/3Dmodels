@@ -1,0 +1,218 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 13137,
+      "max": [
+        66.668228149414062,
+        11.413055419921875,
+        193.29765319824219
+      ],
+      "min": [
+        -66.663223266601562,
+        -9.2722244262695312,
+        59.815803527832031
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 157644,
+      "componentType": 5126,
+      "count": 13137,
+      "max": [
+        0.99929636716842651,
+        0.99978649616241455,
+        0.99998265504837036
+      ],
+      "min": [
+        -0.99929630756378174,
+        -0.99970835447311401,
+        -0.59912574291229248
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 62712,
+      "max": [
+        13136
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 315288,
+      "componentType": 5126,
+      "count": 29284,
+      "max": [
+        92.154495239257812,
+        33.590354919433594,
+        109.87863159179688
+      ],
+      "min": [
+        -92.159500122070312,
+        -35.731185913085938,
+        -109.99630737304688
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 666696,
+      "componentType": 5126,
+      "count": 29284,
+      "max": [
+        0.99511194229125977,
+        1,
+        0.99980342388153076
+      ],
+      "min": [
+        -0.99522006511688232,
+        -1,
+        -0.99920523166656494
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 250848,
+      "componentType": 5125,
+      "count": 138780,
+      "max": [
+        29283
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "NoHumorMan (https://sketchfab.com/NoHumorMan)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/yokai-mask-2-d71f9ac48905459086f2256a711414ab",
+      "title": "Yokai Mask 2"
+    },
+    "generator": "Sketchfab-9.19.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 805968,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1018104,
+      "byteOffset": 805968,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1824072,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "default",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3,
+        4
+      ],
+      "name": "Mask2.obj.cleaner.materialmerger.gles"
+    },
+    {
+      "mesh": 0,
+      "name": ""
+    },
+    {
+      "mesh": 1,
+      "name": ""
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
+
