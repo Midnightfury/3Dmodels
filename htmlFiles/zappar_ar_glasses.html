@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://libs.zappar.com/zappar-aframe/0.3.9/zappar-aframe.js"></script>
+    <script>
+        $(document).ready(function () {
+            arGlassesEl = document.querySelector("#faceGlasses");
+
+            window.switchModel = (element, name) => {
+                if (name === "specs") {
+                    arGlassesEl.setAttribute('gltf-model', 'https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/glasses/scene.gltf');
+                    arGlassesEl.setAttribute('position', {
+                        x: 0,
+                        y: 0,
+                        z: -0.06
+                    });
+                    arGlassesEl.setAttribute('scale', {
+                        x: 0.55,
+                        y: 0.5,
+                        z: 0.4
+                    });
+
+                } else if (name === "aviators") {
+                    arGlassesEl.setAttribute('gltf-model', 'https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/aviators/scene.gltf');
+                    arGlassesEl.setAttribute('position', {
+                        x: 0,
+                        y: 0,
+                        z: -0.66
+                    });
+                    arGlassesEl.setAttribute('scale', {
+                        x: 0.73,
+                        y: 0.7,
+                        z: 0.7
+                    });
+                }
+
+                const slides = document.querySelectorAll(".slide");
+                slides.forEach((element) => {
+                    element.classList.remove("selected");
+                });
+                element.classList.add("selected");
+            };
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider {
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            position: absolute;
+            left: 3%;
+            bottom: 2%;
+        }
+
+        .slides {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .slide {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgba(255, 255, 255, 0.856);
+            margin-right: 10px;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+        }
+
+        .slide.selected {
+            border: 3px solid #d32525;
+        }
+
+        .slide:focus {
+            outline: none;
+        }
+
+        .slide:focus-visible {
+            outline: 1px solid #4285f4;
+        }
+    </style>
+    <title>Face Landmarks</title>
+</head>
+
+<body>
+    <a-scene>
+        <!-- Ask user for camera permissions -->
+        <a-entity zappar-permissions-ui id="permissions"></a-entity>
+
+        <!-- Browser Compatibility -->
+        <a-entity zappar-compatibility-ui id="compatibility"></a-entity>
+
+        <a-assets>
+            <!--<img id="face-mesh-template" src="./images/faceMeshTemplate.png">-->
+
+            <a-asset-item id="aviators"
+                src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/aviators/scene.gltf">
+            </a-asset-item>
+            <a-asset-item id="specs"
+                src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/glasses/scene.gltf">
+            </a-asset-item>
+        </a-assets>
+
+        <a-entity camera zappar-camera="user-facing: true;"></a-entity>
+
+        <a-entity zappar-face id="face-group">
+            <a-entity zappar-head-mask="face: #face-group;"></a-entity>
+            <!--<a-entity geometry="primitive: face-mesh; face: #face-group;" material="src: #face-mesh-template; transparent: true;"></a-entity>-->
+        </a-entity>
+
+        <a-entity zappar-face-landmark="face: #face-group; target: nose-bridge" id="zappar-face-landmark">
+            <a-entity id="faceGlasses" scale="0.73 0.7 0.7" position="0 0 -0.66" gltf-model="#aviators"></a-entity>
+        </a-entity>
+    </a-scene>
+    <div class="slider">
+        <div class="slides">
+            <button class="slide" onclick="switchModel(this, 'specs')"
+                style="background-color: black; cursor: pointer; color: aliceblue;">Rectangular Glasses</button>
+            <button class="slide selected" onclick="switchModel(this, 'aviators')"
+                style="background-color: black; cursor: pointer; color: aliceblue;">Sniper Aviators</button>
+        </div>
+    </div>
+</body>
+
+</html>
