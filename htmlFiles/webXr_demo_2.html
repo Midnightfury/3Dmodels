@@ -42,6 +42,7 @@
             camera.matrixAutoUpdate = false;
             camera.position.z = 5;*/
 
+            ZapparThree.glContextSet(renderer.getContext());
             const camera = new ZapparThree.Camera();
             ZapparThree.permissionRequestUI().then(granted => {
                 if (granted) {
