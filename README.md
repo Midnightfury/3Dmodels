@@ -8,4 +8,4 @@ The glbModels folder contains all 3D models of glb file format.
 
 the USDZ files are in the usdzFiles folder and can only be used for iOS devices.
 
-The HTMl/JS files are stored in the htlmFiles folder and contain certain implementations of WebAR.
+The HTML/JS files are stored in the htlmFiles folder and contain certain implementations of WebAR.
