@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://libs.zappar.com/zappar-threejs/0.3.33/zappar-threejs.js"></script>
     <title>WebXR Demo</title>
 </head>
 
@@ -37,21 +36,8 @@
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-            /*const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.matrixAutoUpdate = false;
-            camera.position.z = 5;*/
-
-            ZapparThree.glContextSet(renderer.getContext());
-
-            const camera = new ZapparThree.Camera();
-            ZapparThree.permissionRequestUI().then(granted => {
-                if (granted) {
-                    camera.start();
-                }
-                else {
-                    ZapparThree.permissionDeniedUI();
-                }
-            });
 
             //XR seesion set-up
             const session = await navigator.xr.requestSession("immersive-ar", {
@@ -61,7 +47,7 @@
                 baseLayer: new XRWebGLLayer(session, gl),
             });
 
-            const referenceSpace = await session.requestRefereceSpace("local");
+            //const referenceSpace = await session.requestRefereceSpace("local");
 
             const viewerSpace = await session.requestRefereceSpace("viewer");
             const hitTestsource = await session.requestHitTestSource({
@@ -103,13 +89,12 @@
 
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
-                camera.updateFrame(renderer);
                 gl.bindFramebuffer(
                     gl.FRAMEBUFFER,
                     session.renderState.baseLayer.framebuffer
                 );
 
-                const pose = frame.getViewerPose(referenceSpace);
+                const pose = frame.getViewerPose(viewerSpace);
                 if (pose) {
                     const view = pose.views[0];
                     const viewport = session.renderState.baseLayer.getViewport(view);
@@ -121,7 +106,7 @@
 
                     const hitTestResults = frame.getHitTestResults(hitTestsource);
                     if (hitTestResults.length > 0 && reticle) {
-                        const hitPose = hitTestResults[0].getPose(referenceSpace);
+                        const hitPose = hitTestResults[0].getPose(viewerSpace);
                         reticle.visible = true;
                         reticle.position.set(
                             hitPose.transform.position.x,
@@ -136,7 +121,7 @@
             session.requestAnimationFrame(onXRFrame);
         }
 
-        window.onload = activateAR;
+        activateAR();
     </script>
 </body>
 
