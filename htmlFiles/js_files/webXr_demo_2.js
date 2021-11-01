@@ -24,6 +24,10 @@ async function activateAR() {
 
   const camera = new THREE.PerspectiveCamera();
   camera.matrixAutoUpdate = false;
+  scene.add(camera);
+  
+  const cameraHelper = new THREE.CameraHelper(camera);
+  scene.add(cameraHelper);
 
   //XR seesion set-up
   const session = await navigator.xr.requestSession("immersive-ar", {
