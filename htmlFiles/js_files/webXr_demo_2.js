@@ -2,7 +2,7 @@ async function activateAR() {
   //scene and 3D model set-up
   const canvas = document.createElement("canvas");
   document.body.appendChild(canvas);
-  const gl = canvas.getContext("webgl", { xrCompatibile: true });
+  const gl = canvas.getContext("webgl", { xrCompatible: true });
 
   const scene = new THREE.Scene();
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1.1);
@@ -14,7 +14,7 @@ async function activateAR() {
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     preserveDrawingBuffer: true,
-    canavs: canvas,
+    canvas: canvas,
     context: gl,
   });
 
@@ -22,12 +22,13 @@ async function activateAR() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  const camera = new THREE.PerspectiveCamera();
+  const camera = new THREE.PerspectiveCamera(
+    60,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
   camera.matrixAutoUpdate = false;
-  scene.add(camera);
-  
-  const cameraHelper = new THREE.CameraHelper(camera);
-  scene.add(cameraHelper);
 
   //XR seesion set-up
   const session = await navigator.xr.requestSession("immersive-ar", {
