@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://libs.zappar.com/zappar-aframe/0.3.9/zappar-aframe.js"></script>
+    <script>
+        $(document).ready(function () {
+            arMasksEl = document.querySelector("#faceMasks");
+
+            window.switchModel = (element, name) => {
+                if (name === "n95") {
+                    arMasksEl.setAttribute('gltf-model', './3d models/n95_face_mask/scene.gltf');
+                    arMasksEl.setAttribute('position', {
+                        x: 0,
+                        y: 0,
+                        z: 0.027
+                    });
+                    arMasksEl.setAttribute('scale', {
+                        x: 0.00062,
+                        y: 0.00055,
+                        z: 0.00037
+                    });
+                    arMasksEl.setAttribute('rotation', {
+                        x: 6,
+                        y: 0,
+                        z: 0
+                    });
+
+                } else if (name === "surgicalMask") {
+                    arMasksEl.setAttribute('gltf-model', './3d models/medical_mask_1/scene.gltf');
+                    arMasksEl.setAttribute('position', {
+                        x: -0.01,
+                        y: 0.415,
+                        z: -0.97
+                    });
+                    arMasksEl.setAttribute('scale', {
+                        x: 7.5,
+                        y: 7.5,
+                        z: 8
+                    });
+                    arMasksEl.setAttribute('rotation', {
+                        x: 5,
+                        y: 180,
+                        z: 0
+                    });
+                }
+                else if (name === "kyloRenMask") {
+                    arMasksEl.setAttribute('gltf-model', './3d models/kylo-ren-mask/scene.gltf');
+                    arMasksEl.setAttribute('position', {
+                        x: -0.69,
+                        y: -9.2,
+                        z: -4.094
+                    });
+                    arMasksEl.setAttribute('scale', {
+                        x: 7.06,
+                        y: 6.4,
+                        z: 6.47
+                    });
+                    arMasksEl.setAttribute('rotation', {
+                        x: 10,
+                        y: 0,
+                        z: 0
+                    });
+                }
+
+                const slides = document.querySelectorAll(".slide");
+                slides.forEach((element) => {
+                    element.classList.remove("selected");
+                });
+                element.classList.add("selected");
+            };
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider {
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            position: absolute;
+            left: 3%;
+            bottom: 2%;
+        }
+
+        .slides {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .slide {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgba(255, 255, 255, 0.856);
+            margin-right: 10px;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+        }
+
+        .slide.selected {
+            border: 3px solid rgb(221, 49, 49);
+        }
+
+        .slide:focus {
+            outline: none;
+        }
+
+        .slide:focus-visible {
+            outline: 1px solid #4285f4;
+        }
+    </style>
+    <title>Face Landmarks</title>
+</head>
+
+<body>
+    <a-scene>
+        <!-- Ask user for camera permissions -->
+        <a-entity zappar-permissions-ui id="permissions"></a-entity>
+
+        <!-- Browser Compatibility -->
+        <a-entity zappar-compatibility-ui id="compatibility"></a-entity>
+
+        <a-assets>
+            <img id="face-mesh-template" src="./images/faceMeshTemplate.png">
+
+            <a-asset-item id="n95" src="./3d models/n95_face_mask/scene.gltf"></a-asset-item>
+            <a-asset-item id="face-mask" src="./3d models/medical_mask_1/scene.gltf"></a-asset-item>
+            <a-asset-item id="face-mask-1" src="./3d models/kylo-ren-mask/scene.gltf"></a-asset-item>
+        </a-assets>
+
+        <a-entity camera zappar-camera="user-facing: true;"></a-entity>
+
+        <a-entity zappar-face id="face-group">
+            <a-entity zappar-head-mask="face: #face-group;"></a-entity>
+            <!--<a-entity geometry="primitive: face-mesh; face: #face-group;" material="src: #face-mesh-template; transparent: true;"></a-entity>-->
+        </a-entity>
+
+        <a-entity light="type: ambient; intensity: 0.3;"></a-entity>
+        <a-entity light="type: directional; castShadow: true; intensity: 1.1; shadowCameraVisible: true;"
+            position="1.45 1.45 0.6"></a-entity>
+
+        <a-entity zappar-face-landmark="face: #face-group; target: nose-base" id="zappar-face-landmark">
+            <a-entity id="faceMasks" rotation="6 0 0" scale="0.00062 0.00055 0.00037" position="0 0 0.027"
+                gltf-model="#n95" shadow="receive: true;"></a-entity>
+        </a-entity>
+    </a-scene>
+    <div class="slider">
+        <div class="slides">
+            <button class="slide selected" onclick="switchModel(this, 'n95')"
+                style="background-color: black; cursor: pointer; color: aliceblue;">n-95 Mask</button>
+            <button class="slide" onclick="switchModel(this, 'surgicalMask')"
+                style="background-color: black; cursor: pointer; color: aliceblue;">Surgical Mask</button>
+            <button class="slide" onclick="switchModel(this, 'kyloRenMask')"
+                style="background-color: black; cursor: pointer; color: aliceblue;">Kylo Ren Mask</button>
+        </div>
+    </div>
+</body>
+
+</html>
