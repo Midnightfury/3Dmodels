@@ -2,7 +2,7 @@ async function activateAR() {
   //scene and 3D model set-up
   const canvas = document.createElement("canvas");
   document.body.appendChild(canvas);
-  const gl = canvas.getContext("webgl", { xrCompatibile: true });
+  const gl = canvas.getContext("webgl", { xrCompatible: true });
 
   const scene = new THREE.Scene();
   const materials = [
@@ -24,7 +24,7 @@ async function activateAR() {
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     preserveDrawingBuffer: true,
-    canavs: canvas,
+    canvas: canvas,
     context: gl,
   });
 
