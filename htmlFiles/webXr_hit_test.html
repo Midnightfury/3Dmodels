@@ -85,11 +85,11 @@
 
                     const hitTestResults = frame.getHitTestResults(hitTestSource);
 
-                    if (hitTestResults > 0) {
+                    if (hitTestResults.length > 0) {
                         const hitPose = hitTestResults[0].getPose(referenceSpace);
 
                         reticle.visible = true;
-                        reticle.position.set(hitPose.transform.x, hitPose.transform.y, hitPose.transform.z);
+                        reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z);
                         reticle.updateMatrixWorld(true);
                     }
 
