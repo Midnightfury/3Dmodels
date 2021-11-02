@@ -53,7 +53,6 @@
             let reticle;
             loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function (gltf) {
                 reticle = gltf.scene;
-                reticle.scale.set(0.6, 0.6, 0.6);
                 reticle.visible = false;
                 scene.add(reticle);
             })
@@ -61,7 +60,7 @@
             let flower;
             loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/Volcano_low_poly/scene.gltf", function (gltf) {
                 flower = gltf.scene;
-                flower.scale.set(0.2, 0.2, 0.2);
+                flower.scale.set(0.075, 0.075, 0.075);
                 flower.receiveShadow = true;
             });
 
