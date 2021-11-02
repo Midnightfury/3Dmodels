@@ -54,8 +54,9 @@
             })
 
             let flower;
-            loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf", function (gltf) {
+            loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/Volcano_low_poly/scene.gltf", function (gltf) {
                 flower = gltf.scene;
+                flower.scale.set(0.075, 0.075, 0.075);
             });
 
             session.addEventListener("select", (event) => {
