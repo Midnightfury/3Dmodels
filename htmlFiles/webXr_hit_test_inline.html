@@ -129,14 +129,16 @@
     </div>
     <script>
         async function activateAR() {
+            $(".content").attr("hidden", true);
+
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
             const scene = new THREE.Scene();
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-            directionalLight.position.set(1, 1.5, 0);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.1);
+            directionalLight.position.set(1, 2.5, 0);
             directionalLight.castShadow = true;
             scene.add(directionalLight);
 
@@ -165,6 +167,7 @@
             let reticle;
             loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function (gltf) {
                 reticle = gltf.scene;
+                reticle.scale.set(0.5, 0.5, 0.5);
                 reticle.visible = false;
                 scene.add(reticle);
             })
