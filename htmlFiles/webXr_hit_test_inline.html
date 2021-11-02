@@ -75,8 +75,8 @@
             line-height: 1.5em;
         }
 
-        .hidden {
-            display: none;
+        .overlay {
+            z-index: 1;
         }
     </style>
     <title>WebXR inline AR</title>
@@ -135,6 +135,7 @@
         async function activateAR() {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
+            canvas.classList.add("overlay");
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
             const scene = new THREE.Scene();
