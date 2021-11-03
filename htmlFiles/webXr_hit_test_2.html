@@ -8,14 +8,13 @@
     <!--Three.js-->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <!--<script src="https://unpkg.com/three@0.126.0/examples/jsm/controls/OrbitControls.js"></script>-->
+    <script src="https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/jsm/controls/OrbitControls.js"></script>
     <title>WebXR Demo</title>
 </head>
 
 <body>
     <button onclick="activateAR()">Start AR</button>
     <script>
-        import { OrbitControls } from 'https://unpkg.com/three@0.134.0/examples/jsm/controls/OrbitControls.js';
         async function activateAR() {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
@@ -41,7 +40,7 @@
             camera.matrixAutoUpdate = false;
 
             //Adding Orbit Controls to manipulate the Camera
-            const controls = new OrbitControls(camera, renderer.domElement);
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.update();
 
             const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay'], domOverlay: { root: document.body } });
