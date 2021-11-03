@@ -36,6 +36,8 @@
             renderer.autoClear = false;
             renderer.outputEncoding = THREE.sRGBEncoding;
 
+            document.body.appendChild(renderer.domElement);
+
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
