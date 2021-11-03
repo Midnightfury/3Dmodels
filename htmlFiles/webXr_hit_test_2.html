@@ -8,7 +8,7 @@
     <!--Three.js-->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://unpkg.com/three@0.126.0/examples/jsm/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.134.0/examples/jsm/controls/OrbitControls.js"></script>
     <title>WebXR Demo</title>
 </head>
 
@@ -101,7 +101,8 @@
                         reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z);
                         reticle.updateMatrixWorld(true);
                     }
-
+                    
+                    controls.update();
                     renderer.render(scene, camera)
                 }
             }
