@@ -41,7 +41,6 @@
 
             //Adding Orbit Controls to manipulate the Camera
             const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.update();
 
             const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay'], domOverlay: { root: document.body } });
             session.updateRenderState({
@@ -92,6 +91,7 @@
                     camera.matrix.fromArray(view.transform.matrix)
                     camera.projectionMatrix.fromArray(view.projectionMatrix);
                     camera.updateMatrixWorld(true);
+                    controls.update();
 
                     const hitTestResults = frame.getHitTestResults(hitTestSource);
 
@@ -103,7 +103,6 @@
                         reticle.updateMatrixWorld(true);
                     }
 
-                    //controls.update();
                     renderer.render(scene, camera)
                 }
             }
