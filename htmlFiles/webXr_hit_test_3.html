@@ -16,6 +16,7 @@
     <script>
         const MAX_OBJECTS = 1;
         let objects = [];
+
         async function activateAR() {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
@@ -64,7 +65,7 @@
             let chair;
             loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf", function (gltf) {
                 chair = gltf.scene;
-                chair.scale.set(0.5, 0.5, 0.5);
+                chair.scale.set(0.2, 0.2, 0.2);
                 chair.receiveShadow = true;
             });
 
