@@ -8,7 +8,6 @@
     <!--Three.js-->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js"></script>
     <title>WebXR Demo</title>
 </head>
 
@@ -65,7 +64,7 @@
             let chair;
             loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf", function (gltf) {
                 chair = gltf.scene;
-                chair.scale.set(0.9, 0.9, 0.9);
+                chair.scale.set(0.5, 0.5, 0.5);
                 chair.receiveShadow = true;
             });
 
@@ -75,7 +74,7 @@
                     clone.position.copy(reticle.position);
                     scene.add(clone);
 
-                    objects.push(chair);
+                    objects.push(clone);
                     if (objects.length > MAX_OBJECTS) {
                         let oldObject = objects.shift();
                         scene.remove(oldObject);
