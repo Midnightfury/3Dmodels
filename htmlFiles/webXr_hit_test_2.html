@@ -8,7 +8,7 @@
     <!--Three.js-->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/jsm/controls/OrbitControls.js"></script>
+    <script src="https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js"></script>
     <title>WebXR Demo</title>
 </head>
 
@@ -36,13 +36,11 @@
             renderer.autoClear = false;
             renderer.outputEncoding = THREE.sRGBEncoding;
 
-            document.body.appendChild(renderer.domElement);
-
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
             //Adding Orbit Controls to manipulate the Camera
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            //const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
             const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay'], domOverlay: { root: document.body } });
             session.updateRenderState({
@@ -62,16 +60,16 @@
                 scene.add(reticle);
             })
 
-            let flower;
-            loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/Volcano_low_poly/scene.gltf", function (gltf) {
-                flower = gltf.scene;
-                flower.scale.set(0.075, 0.075, 0.075);
-                flower.receiveShadow = true;
+            let chair;
+            loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf", function (gltf) {
+                chair = gltf.scene;
+                chair.scale.set(1.7, 1.7, 1.7);
+                chair.receiveShadow = true;
             });
 
             session.addEventListener("select", (event) => {
-                if (flower) {
-                    const clone = flower.clone();
+                if (chair) {
+                    const clone = chair.clone();
                     clone.position.copy(reticle.position);
                     scene.add(clone);
                 }
@@ -93,7 +91,6 @@
                     camera.matrix.fromArray(view.transform.matrix)
                     camera.projectionMatrix.fromArray(view.projectionMatrix);
                     camera.updateMatrixWorld(true);
-                    controls.update();
 
                     const hitTestResults = frame.getHitTestResults(hitTestSource);
 
