@@ -55,7 +55,7 @@
 
         p {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: 600;
+            font-weight: 500;
             font-size: large;
         }
     </style>
@@ -70,7 +70,7 @@
         <p>Scale: <span id="sizeValue"></span></p>
     </div>
     <div class="slidecontainer">
-        <input type="range" min="0" max="360" step="0.1" value="0" class="slider" id="rotateObject">
+        <input type="range" min="0" max="360" step="1" value="0" class="slider" id="rotateObject">
         <p>Rotation: <span id="rotationValue"></span></p>
     </div>
     <script>
@@ -134,7 +134,7 @@
 
             var rotateSlider = document.querySelector("#rotateObject");
             rotateSlider.addEventListener("input", function () {
-                chiar.rotation.set(0, rotateSlider.value, 0);
+                chair.rotation.set(0, rotateSlider.value, 0);
                 document.querySelector("#rotationValue").innerHTML = rotateSlider.value;
             });
 
