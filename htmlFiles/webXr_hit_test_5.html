@@ -18,13 +18,13 @@
 
 <body>
     <div class="row" style="margin-top: 15px;">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-1" style="margin-top: 4px;">
-            <button type="button" class="btn btn-primary btn-lg" onclick="activateAR()">Start AR</button>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-2" style="margin-top: 4px;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         </div>
         <div class="col-xs-6"></div>
         <div class="col-xs-1" style="margin-top: 4px;">
-            <button type="button" class="btn btn-success btn-lg" id="placeObjectBtn">Place Object</button>
+            <button type="button" class="btn btn-success btn-sm" id="placeObjectBtn">Place Object</button>
         </div>
         <div class="col-xs-2"></div>
     </div>
@@ -82,20 +82,6 @@
                 chair.receiveShadow = false;
             });
 
-            /*session.addEventListener("select", (event) => {
-                if (chair) {
-                    const clone = chair.clone();
-                    clone.position.copy(reticle.position);
-                    scene.add(clone);
-
-                    objects.push(clone);
-                    if (objects.length > MAX_OBJECTS) {
-                        let oldObject = objects.shift();
-                        scene.remove(oldObject);
-                    }
-                }
-            });*/
-
             var objectPlacementBtn = document.querySelector("#placeObjectBtn");
             objectPlacementBtn.addEventListener("click", (event) => {
                 if (chair) {
@@ -111,8 +97,7 @@
                 }
             });
 
-            /*let oldClientX = 0;
-            let modelScaleInitial = chair.scale.x;
+            let oldClientX = 0;
             session.addEventListener("touchmove", function (evt) {
                 if (evt.touches.length === 1) {
                     var dX;
@@ -122,27 +107,7 @@
                     chair.rotation.y -= dX / 200;
                     oldClientX = evt.touches[0].clientX;
                 }
-                else if (evt.touches.length === 2) {
-                    var dx, dy, distance, oldDistance, distanceDiff, modelScale;
-                    dx = evt.touches[0].clientX - evt.touches[1].clientX;
-                    dy = evt.touches[0].clientY - evt.touches[1].clientY;
-
-                    distance = Math.sqrt(dx * dx + dy * dy);
-                    oldDistance = OldDistance || distance;
-                    distanceDiff = oldDistance - distance;
-
-                    modelScale = modelScale || modelScaleInitial;
-                    modelScale -= distanceDiff / 500;
-
-                    //clamp scale between 0.1 and 1.8 times the size;
-                    modelScale = Math.min(Math.max(0.1, modelScale), 1.8);
-
-                    chair.scale.set(modelScale, modelScale, modelScale);
-
-                    modelScaleInitial = modelScale;
-                    oldDistance = distance;
-                }
-            });*/
+            });
 
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
