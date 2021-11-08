@@ -22,11 +22,11 @@
         <div class="col-xs-2" style="margin-top: 4px;">
             <button type="button" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         </div>
-        <div class="col-xs-6"></div>
+        <div class="col-xs-5"></div>
         <div class="col-xs-2">
             <button type="button" class="btn btn-success btn-sm" id="place-object">Place Object</button>
         </div>
-        <div class="col-xs-1"></div>
+        <div class="col-xs-2"></div>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -82,7 +82,7 @@
             });
 
             var dX = 0, oldClientX = 0;
-            var dx = 0, dy = 0, oldDistance = 0, modelScale = chair.scale.x;
+            var dx = 0, dy = 0, oldDistance = 0, modelScale = 0.4;
             canvas.addEventListener("touchmove", function (event) {
                 if (event.touches.length === 1) {
                     dX = oldClientX - event.touches[0].clientX;
