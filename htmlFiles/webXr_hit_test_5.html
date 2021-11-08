@@ -18,15 +18,14 @@
 
 <body>
     <div class="row" style="margin-top: 15px;">
-        <div class="col-xs-1"></div>
-        <div class="col-xs-2" style="margin-top: 4px;">
+        <div class="col-xs-1" style="margin-top: 4px;">
             <button type="button" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         </div>
         <div class="col-xs-6"></div>
-        <div class="col-xs-1" style="margin-top: 4px;">
+        <div class="col-xs-2" style="margin-top: 4px;">
             <button type="button" class="btn btn-success btn-sm" id="placeObjectBtn">Place Object</button>
         </div>
-        <div class="col-xs-2"></div>
+        <div class="col-xs-3"></div>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -82,6 +81,17 @@
                 chair.receiveShadow = false;
             });
 
+            var dX, oldClientX;
+            session.addEventListener("select", function (evt) {
+                if (evt.touches.length === 1) {
+                    oldClientX = oldClientX || evt.touches[0].clientX;
+                    dX = oldClientX - evt.touches[0].clientX;
+
+                    chair.rotation.y = chair.rotation.y - dX / 200;
+                    oldClientX = evt.touches[0].clientX;
+                }
+            });
+
             var objectPlacementBtn = document.querySelector("#placeObjectBtn");
             objectPlacementBtn.addEventListener("click", (event) => {
                 if (chair) {
@@ -94,18 +104,6 @@
                         let oldObject = objects.shift();
                         scene.remove(oldObject);
                     }
-                }
-            });
-
-            let oldClientX = 0;
-            session.addEventListener("touchmove", function (evt) {
-                if (evt.touches.length === 1) {
-                    var dX;
-
-                    dX = oldClientX - evt.touches[0].clientX;
-
-                    chair.rotation.y -= dX / 200;
-                    oldClientX = evt.touches[0].clientX;
                 }
             });
 
