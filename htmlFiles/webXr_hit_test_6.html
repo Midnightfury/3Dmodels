@@ -22,11 +22,11 @@
         <div class="col-xs-2" style="margin-top: 4px;">
             <button type="button" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         </div>
-        <div class="col-xs-5"></div>
+        <div class="col-xs-6"></div>
         <div class="col-xs-2">
             <button type="button" class="btn btn-success btn-sm" id="place-object">Place Object</button>
         </div>
-        <div class="col-xs-2"></div>
+        <div class="col-xs-1"></div>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -82,14 +82,29 @@
             });
 
             var dX = 0, oldClientX = 0;
-            /*canvas.addEventListener("touchmove", function (event) {
+            var dx = 0, dy = 0, oldDistance = 0, modelScale = chair.scale.x;
+            canvas.addEventListener("touchmove", function (event) {
                 if (event.touches.length === 1) {
                     dX = oldClientX - event.touches[0].clientX;
 
-                    chair.rotation.y = chair.rotation.y - dX / 200;
+                    chair.rotation.y = chair.rotation.y - dX / 50;
                     oldClientX = event.touches[0].clientX;
                 }
-            });*/
+                else if (event.touches.length === 2) {
+                    dx = event.touches[0].clientX - event.touches[1].clientX;
+                    dy = event.touches[0].clientY - event.touches[1].clientY;
+
+                    var distance = Math.sqrt(dx * dx + dy * dy);
+                    var distanceDiff = oldDistance - distance;
+
+                    modelScale = modelScale - distanceDiff / 200;
+
+                    //Clamp scale
+                    modelScale = Math.min(Math.max(0.1, modelScale), 2.0);
+
+                    oldDistance = distance;
+                }
+            });
 
             var objectPlacementBtn = document.querySelector("#place-object");
             objectPlacementBtn.addEventListener("click", function (event) {
@@ -110,15 +125,6 @@
                 session.requestAnimationFrame(onXRFrame);
 
                 gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
-
-                canvas.addEventListener("touchmove", function (event) {
-                    if (event.touches.length === 1) {
-                        dX = oldClientX - event.touches[0].clientX;
-
-                        chair.rotation.y = chair.rotation.y - dX / 200;
-                        oldClientX = event.touches[0].clientX;
-                    }
-                });
 
                 const pose = frame.getViewerPose(referenceSpace);
                 if (pose) {
