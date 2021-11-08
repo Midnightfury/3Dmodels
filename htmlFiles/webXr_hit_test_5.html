@@ -73,8 +73,8 @@
             <button type="button" class="btn btn-primary btn-lg" onclick="activateAR()">Start AR</button>
         </div>
         <div class="col-xs-6"></div>
-        <div class="col-xs-1">
-            <button type="button" class="btn btn-success btn-lg" id="placeObjectBtn"></button>
+        <div class="col-xs-1" style="margin-top: 4px;">
+            <button type="button" class="btn btn-success btn-lg" id="placeObjectBtn">Place Object</button>
         </div>
         <div class="col-xs-2"></div>
     </div>
@@ -90,7 +90,7 @@
             const scene = new THREE.Scene();
 
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.position.set(1, 1.5, 0);
+            directionalLight.position.set(10, 15, 0);
             directionalLight.castShadow = true;
             scene.add(directionalLight);
 
@@ -162,7 +162,7 @@
                 }
             });
 
-            let oldClientX = 0;
+            /*let oldClientX = 0;
             let modelScaleInitial = chair.scale.x;
             session.addEventListener("touchmove", function (evt) {
                 if (evt.touches.length === 1) {
@@ -193,7 +193,7 @@
                     modelScaleInitial = modelScale;
                     oldDistance = distance;
                 }
-            });
+            });*/
 
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
