@@ -18,14 +18,14 @@
 
 <body>
     <div class="row" style="margin-top: 15px;">
-        <div class="col-xs-1" style="margin-top: 4px;">
+        <div class="col-xs-1" style="margin-top: 4px;margin-left: 10px;">
             <button type="button" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         </div>
         <div class="col-xs-6"></div>
-        <div class="col-xs-2" style="margin-top: 4px;">
+        <div class="col-xs-3" style="margin-top: 4px;">
             <button type="button" class="btn btn-success btn-sm" id="placeObjectBtn">Place Object</button>
         </div>
-        <div class="col-xs-3"></div>
+        <div class="col-xs-2"></div>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -42,6 +42,16 @@
             directionalLight.position.set(10, 15, 0);
             directionalLight.castShadow = true;
             scene.add(directionalLight);
+
+            const planeGeometry = THREE.PlaneGeometry(2000, 2000);
+            planeGeometry.rotateX(-Math.PI / 2);
+
+            const shadowPlane = THREE.Mesh(planeGeometry, new THREE.ShadowMaterial({
+                color: 0x111111,
+                opacity: 0.2,
+            }));
+            shadowPlane.receiveShadow = true;
+            scene.add(shadowPlane);
 
             const renderer = new THREE.WebGLRenderer({
                 alpha: true,
@@ -82,7 +92,7 @@
             });
 
             var dX, oldClientX;
-            session.addEventListener("select", function (evt) {
+            window.addEventListener("touchmove", (evt) => {
                 if (evt.touches.length === 1) {
                     oldClientX = oldClientX || evt.touches[0].clientX;
                     dX = oldClientX - evt.touches[0].clientX;
@@ -104,6 +114,8 @@
                         let oldObject = objects.shift();
                         scene.remove(oldObject);
                     }
+
+                    shadowPlane.position.y = clone.position.y;
                 }
             });
 
