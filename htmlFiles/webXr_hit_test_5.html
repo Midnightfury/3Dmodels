@@ -13,17 +13,18 @@
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
 
-    <!--CSS-->
+    <!--Creating a resizing slider-->
     <style>
         .slidecontainer {
+            width: 100%;
             background-color: rgba(32, 32, 36, 0.5);
-            color: rgb(152, 217, 233);
+            color: rgb(132, 216, 236);
         }
 
         p {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: 600;
-            font-size: small;
+            font-size: medium;
         }
     </style>
     <title>WebXR Demo</title>
@@ -31,15 +32,17 @@
 
 <body>
     <div class="row" style="margin-top: 15px;">
-        <div class="col-xs-1" style="margin-top: 4px;margin-left: 10px;">
+        <div class="col-xs-1" style="margin-top: 4px;">
             <button type="button" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         </div>
-        <div class="col-xs-6 slidecontainer">
-            <input type="range" min="0.1" max="2.0" step="0.01" value="0.4" class="slider" id="resizeObject">
-            <p>Scale: 0.4<span id="sizeValue"></span></p>
+        <div class="col-xs-6">
+            <div class="slidecontainer">
+                <input type="range" min="0.1" max="2" step="0.01" value="0.4" class="slider" id="resizeObject">
+                <p>Scale: 0.4<span id="sizeValue"></span></p>
+            </div>
         </div>
-        <div class="col-xs-3" style="margin-top: 4px;">
-            <button type="button" class="btn btn-success btn-sm" id="placeObjectBtn">Place Object</button>
+        <div class="col-xs-3">
+            <button type="button" class="btn btn-success btn-sm" id="place-object">Place Object</button>
         </div>
         <div class="col-xs-2"></div>
     </div>
@@ -54,20 +57,10 @@
 
             const scene = new THREE.Scene();
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.position.set(10, 15, 0);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(1, 1.5, 0);
             directionalLight.castShadow = true;
             scene.add(directionalLight);
-
-            const planeGeometry = THREE.PlaneGeometry(2000, 2000);
-            planeGeometry.rotateX(-Math.PI / 2);
-
-            const shadowPlane = THREE.Mesh(planeGeometry, new THREE.ShadowMaterial({
-                color: 0x111111,
-                opacity: 0.2,
-            }));
-            shadowPlane.receiveShadow = true;
-            scene.add(shadowPlane);
 
             const renderer = new THREE.WebGLRenderer({
                 alpha: true,
@@ -103,8 +96,7 @@
             loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf", function (gltf) {
                 chair = gltf.scene;
                 chair.scale.set(0.4, 0.4, 0.4);
-                chair.castShadow = true;
-                chair.receiveShadow = false;
+                chair.receiveShadow = true;
             });
 
             var sizeSlider = document.querySelector("#resizeObject");
@@ -113,8 +105,8 @@
                 document.querySelector("#sizeValue").innerHTML = sizeSlider.value;
             });
 
-            var objectPlacementBtn = document.querySelector("#placeObjectBtn");
-            objectPlacementBtn.addEventListener("click", (event) => {
+            var objectPlacementBtn = document.querySelector("#place-object");
+            objectPlacementBtn.addEventListener("click", function (event) {
                 if (chair) {
                     const clone = chair.clone();
                     clone.position.copy(reticle.position);
@@ -125,8 +117,6 @@
                         let oldObject = objects.shift();
                         scene.remove(oldObject);
                     }
-
-                    shadowPlane.position.y = clone.position.y;
                 }
             });
 
