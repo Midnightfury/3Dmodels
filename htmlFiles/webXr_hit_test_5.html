@@ -13,56 +13,6 @@
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
 
-    <!--Creating a resizing slider-->
-    <style>
-        .slidecontainer {
-            width: 100%;
-            margin-top: 10px;
-            background-color: rgba(32, 32, 36, 0.75);
-            color: rgba(128, 221, 245, 0.9);
-        }
-
-        .slider {
-            -webkit-appearance: none;
-            width: 80%;
-            height: 12px;
-            border-radius: 5px;
-            margin-top: 10px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-
-        .slider:hover {
-            opacity: 1;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #04AA6D;
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #04AA6D;
-            cursor: pointer;
-        }
-
-        p {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: 600;
-            font-size: medium;
-        }
-    </style>
     <title>WebXR Demo</title>
 </head>
 
@@ -102,7 +52,6 @@
             });
             renderer.autoClear = false;
             renderer.outputEncoding = THREE.sRGBEncoding;
-            //renderer.shadowMap.enabled = true;
 
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
