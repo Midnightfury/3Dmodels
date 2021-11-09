@@ -47,12 +47,10 @@
             const planeGeometry = new THREE.PlaneGeometry(2000, 2000);
             planeGeometry.rotateX(-Math.PI / 2);
 
-            const shadowPlane = new THREE.Mesh(planeGeometry, new THREE.ShadowMaterial({
-                color: 0x111111,
-                opacity: 0.7
-            }));
+            const shadowPlane = new THREE.Mesh(planeGeometry, new THREE.MeshStandardMaterial({ color: 0xdddddd, opacity: 0.6 }));
             shadowPlane.receiveShadow = true;
             shadowPlane.position.y = 10000;
+            scene.add(shadowPlane);
 
 
             const renderer = new THREE.WebGLRenderer({
