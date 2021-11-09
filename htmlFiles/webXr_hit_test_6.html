@@ -44,12 +44,14 @@
             directionalLight.castShadow = true;
             scene.add(directionalLight);
 
-            const planeGeometry = new THREE.PlaneGeometry(2000, 2000);
+            const planeGeometry = new THREE.PlaneGeometry(20, 20);
             planeGeometry.rotateX(-Math.PI / 2);
 
-            const shadowPlane = new THREE.Mesh(planeGeometry, new THREE.MeshStandardMaterial({ color: 0xdddddd, opacity: 0.6 }));
+            const planeMaterial = new THREE.ShadowMaterial({ color: 0x111111, opacity: 0.2 });
+
+            const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
             shadowPlane.receiveShadow = true;
-            shadowPlane.position.y = 10000;
+            shadowPlane.position.y = 0;
             scene.add(shadowPlane);
 
 
