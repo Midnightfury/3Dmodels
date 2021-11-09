@@ -49,10 +49,10 @@
 
             const shadowPlane = new THREE.Mesh(planeGeometry, new THREE.ShadowMaterial({
                 color: 0x111111,
-                opacity: 0.2
+                opacity: 0.7
             }));
             shadowPlane.receiveShadow = true;
-            shadowPlane.position.y = 0;
+            shadowPlane.position.y = 10000;
 
 
             const renderer = new THREE.WebGLRenderer({
