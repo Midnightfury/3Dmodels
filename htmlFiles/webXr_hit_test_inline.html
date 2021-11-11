@@ -5,8 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--Three.js-->
+    <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script>
         const DATE_ID = 'date';
 
@@ -44,16 +49,15 @@
             margin-top: 2%;
             transform: translateX(-50%);
             border: 0;
-            background-color: #464766;
-            border-radius: 15px;
+            border-radius: 5px;
             padding: 3px 0px 0px 3px;
             color: white;
-            width: 30%;
+            width: 25%;
         }
 
-        #startBtn img {
+        /*#startBtn img {
             margin: 5px 20px;
-        }
+        }*/
 
         body {
             position: absolute;
@@ -94,7 +98,7 @@
             line-height: 1.5em;
         }
     </style>
-    <title>Model Viewer Demo</title>
+    <title>Inline AR WebXR Demo</title>
 </head>
 
 <body>
@@ -129,9 +133,10 @@
         </p>
     </div>
     <div id="inline-ar">
-        <button id="startBtn" onclick="activateAR()">
+        <!--<button id="startBtn" onclick="activateAR()">
             <img src="https://cdn.glitch.me/49721bba-e457-4722-a790-a1c75ed5184e%2Fstart-ar-banner.svg?v=1633422246784">
-        </button>
+        </button>-->
+        <button type="button" id="startBtn" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         <iframe id="my-iframe" src="./aframe_embedded_2.html"></iframe>
     </div>
     <div class="content">
