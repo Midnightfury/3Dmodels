@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script>
         const DATE_ID = 'date';
 
@@ -27,32 +28,12 @@
             margin: 0 auto;
         }
 
-        iframe {
-            background-color: #eee;
+        img {
             overflow-x: hidden;
-            --poster-color: #eee;
             width: 100%;
             height: 500px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        #startBtn {
-            position: absolute;
-            z-index: 1;
-            left: 15%;
-            margin-top: 2%;
-            transform: translateX(-50%);
-            border: 0;
-            background-color: #464766;
-            border-radius: 15px;
-            padding: 3px 0px 0px 3px;
-            color: white;
-            width: 30%;
-        }
-
-        #startBtn img {
-            margin: 5px 20px;
         }
 
         body {
@@ -94,81 +75,56 @@
             line-height: 1.5em;
         }
     </style>
-    <title>Model Viewer Demo</title>
+    <title>WebXR inline AR</title>
 </head>
 
 <body>
     <div class="content">
-        <h1>Ergonomic Office Chair</h1>
+        <h1>Volcano Erupts in WebAR</h1>
 
         <p class="author">TietoEVRY Inline AR example</p>
 
         <p><span id="date"></span></p>
         <p>
-            An office chair, or desk chair, is a type of chair that is designed for use at a desk in an office. It is
-            usually a
-            swivel chair, with a set of wheels for mobility and adjustable height. Modern office chairs typically use a
-            single,
-            distinctive load bearing leg (often called a gas lift), which is positioned underneath the chair seat. Near
-            the floor
-            this leg spreads out into several smaller feet, which are often wheeled and called casters. Office chairs
-            were developed
-            around the mid-19th century as more workers spent their shifts sitting at a desk, leading to the adoption of
-            several
-            features not found on other chairs.
+            In a volcanic eruption, lava, volcanic bombs and ash, and various gases are expelled from a volcanic vent
+            and fissure. While many eruptions only pose dangers to the immediately surrounding area, Earth's largest
+            eruptions can have a major regional or even
+            global impact, with some affecting the climate and contributing to mass extinctions. Volcanic eruptions can
+            generally be characterized as either explosive eruptions, sudden ejections of rock and ash, or effusive
+            eruptions, relatively gentle
+            outpourings of lava. Explosive eruptions usually involve thick, highly viscous, silicic or felsic magma,
+            high in volatiles like water vapor and carbon dioxide. Pyroclastic materials are the primary product,
+            typically in the form of tuff.
         </p>
 
         <p>
-            The concept of a height-adjustable, swivelling chair with castors was illustrated by the Nuremberg patrician
-            Martin
-            Löffelholz von Kolberg in his 1505 technological illuminated manuscript, the so-called Löffelholz Codex, on
-            folio
-            10r. One of the earliest known innovators to have created the modern office chair was naturalist Charles
-            Darwin, who
-            put wheels on the chair in his study so he could get to his specimens more quickly
+            These volcanic materials spew from the volcano in the form of a pyroclastic flow. According to Wikipedia, a
+            pyroclastic flow (also known as a pyroclastic density current or a pyroclastic cloud) is a fast-moving
+            current of hot gas and volcanic matter (collectively
+            known as tephra) that moves away from a volcano at speeds reaching up to 700 km/h (430 mph).
         </p>
     </div>
     <div id="inline-ar">
-        <button id="startBtn" onclick="activateAR()">
-            <img src="https://cdn.glitch.me/49721bba-e457-4722-a790-a1c75ed5184e%2Fstart-ar-banner.svg?v=1633422246784">
-        </button>
-        <iframe id="my-iframe" src="./aframe_embedded_2.html"></iframe>
+        <img src="https://cdn.glitch.me/49721bba-e457-4722-a790-a1c75ed5184e%2Fvolcano.PNG?v=1635847356386"
+            alt="image of Volcano" onclick="activateAR()">
     </div>
     <div class="content">
         <p>
-            With the advent of rail transport in the mid-19th century, businesses began to expand beyond the traditional
-            model of a
-            family business with little emphasis on administration. The additional administrative staff was required to
-            keep up with
-            orders, bookkeeping, and correspondence as businesses expanded their service areas. While office work was
-            expanding, an
-            awareness of office environments, technology, and equipment became part of the cultural focus on increasing
-            productivity. This awareness gave rise to chairs designed specifically for these new administrative
-            employees: office
-            chairs. This caught the attention of Otto von Bismarck, who is credited with popularizing the office chair
-            by
-            distributing them throughout parliament during his time in office. American inventor Thomas E. Warren (b.
-            1808),
-            designed the Centripetal Spring Armchair in 1849 which was produced by the American Chair Company in Troy,
-            New York.
-            It was first presented at the 1851 Great Exhibition in London. It was only around 1850 when a group of
-            engineers in
-            the United States began to investigate how chairs could improve health and relaxation by stressing posture
-            and movement.
+            The most notorious pyroclastic flow known to geological history belongs to O'Shea Jackson, known
+            professionally by his stage name Ice Cube. After decades honing his lyrical skills on the mic, Ice Cube
+            defined the gangsta rap genre by pushing hip-hop culture
+            into the mainstream through both N.W.A and various solo projects. According to Jackson, a pyroclastic flow
+            "is what happens when a volcano blow, it is what happens when Ice Cube starts to flow. Red hot lava mixed
+            with saliva, pulverising everything
+            in its wake. Nothing can survive a pyroclastic flow, and no one will survive this one".
         </p>
 
         <p>
-            The office chair was strategically designed to increase the productivity of clerical employees by making it
-            possible for
-            them to remain sitting at their desks for long periods of time. A swiveling chair with casters allowed
-            employees to
-            remain sitting and yet reach a number of locations within their work area, eliminating the time and energy
-            expended in
-            standing. The wooden saddle seat was designed to fit and support the body of a sitting employee, and the
-            slatted back
-            and armrests provided additional support to increase the employee’s comfort. Like modern chairs, many of
-            these models
-            were somewhat adjustable to provide the maximum comfort and thus the maximum working time.
+            This proclamation was made on his eighth studio album, "Raw Footage", debuting at number 5 on the Billboard
+            200, with first-week sales reaching 70,000 copies in the United States in 2008. In its second week of
+            release the Album ranked on #8 on the Billboard
+            200 with 63,000 copies more sold. As of 2016 the album sold 713,500 copies in the United States and 925,000
+            copies Worldwide.
         </p>
     </div>
     <script>
@@ -183,7 +139,7 @@
             const scene = new THREE.Scene();
 
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.position.set(0, 2, 0);
+            directionalLight.position.set(0, 1.5, 0);
             directionalLight.castShadow = true;
             scene.add(directionalLight);
 
@@ -196,7 +152,6 @@
             shadowPlane.receiveShadow = true;
             shadowPlane.position.y = 0;
             scene.add(shadowPlane);
-
 
             const renderer = new THREE.WebGLRenderer({
                 alpha: true,
@@ -236,7 +191,7 @@
                 chair.receiveShadow = false;
             });
 
-            session.addEventListener("select", function (event) {
+            session.addEventListener("select", (event) => {
                 if (chair) {
                     const clone = chair.clone();
                     clone.position.copy(reticle.position);
@@ -251,6 +206,7 @@
                     shadowPlane.position.y = clone.position.y;
                 }
             });
+
 
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
