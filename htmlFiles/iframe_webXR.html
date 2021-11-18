@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Bootstrap & jQuery CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--Font Awesome CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--Three.js CDN-->
+    <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script>
+        const DATE_ID = 'date';
+
+        const publishDate = () => {
+            var date = new Date();
+            document.getElementById(DATE_ID).innerHTML = `${date.toLocaleDateString('en-US', { month: 'long' })} ${date.toLocaleDateString('en-US', { day: 'numeric' })}, ${date.toLocaleDateString('en-US', { year: 'numeric' })}`
+        };
+
+        window.onload = publishDate;
+    </script>
+    <style>
+        #canvas {
+            position: absolute;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content-div {
+            position: absolute;
+            z-index: 0;
+        }
+
+        #inline-ar {
+            position: relative;
+            display: block;
+            max-width: 350px;
+            max-height: 675px;
+            height: 550px;
+            margin: 0 auto;
+        }
+
+        iframe {
+            background-color: #eee;
+            overflow-x: hidden;
+            --poster-color: #eee;
+            width: 100%;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #backBtn {
+            position: absolute;
+            top: 3%;
+            left: 4%;
+            text-align: center;
+        }
+
+        #startBtn {
+            position: absolute;
+            left: 15%;
+            margin-top: 2%;
+            transform: translateX(-50%);
+            border: 0;
+            border-radius: 5px;
+            padding: 1px 0px 0px 1px;
+            color: white;
+            width: 25%;
+        }
+
+        body {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .author {
+            margin: 0px;
+            font-weight: 600;
+            font-size: large;
+            font-style: oblique;
+        }
+
+        #date {
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .content {
+            padding: 0px 2em;
+        }
+
+        .content h1 {
+            font-size: 4em;
+            font-style: italic;
+            margin-top: 0.2em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.5em;
+        }
+    </style>
+    <title>Inline AR WebXR Demo</title>
+</head>
+
+<body>
+    <canvas id="canvas" hidden="true">
+        <a href="./iframe_webXR.html" class="btn btn-danger btn-sm" role="button" id="backBtn"><i
+                class="fa fa-chevron-left" style="color: black; padding: 7px;"></i>GO BACK!</a>
+    </canvas>
+    <div class="content-div">
+        <div class="content">
+            <h1>Ergonomic Office Chair</h1>
+
+            <p class="author">TietoEVRY Inline AR example</p>
+
+            <p><span id="date"></span></p>
+            <p>
+                An office chair, or desk chair, is a type of chair that is designed for use at a desk in an office. It
+                is
+                usually a
+                swivel chair, with a set of wheels for mobility and adjustable height. Modern office chairs typically
+                use a
+                single,
+                distinctive load bearing leg (often called a gas lift), which is positioned underneath the chair seat.
+                Near
+                the floor
+                this leg spreads out into several smaller feet, which are often wheeled and called casters. Office
+                chairs
+                were developed
+                around the mid-19th century as more workers spent their shifts sitting at a desk, leading to the
+                adoption of
+                several
+                features not found on other chairs.
+            </p>
+
+            <p>
+                The concept of a height-adjustable, swivelling chair with castors was illustrated by the Nuremberg
+                patrician
+                Martin
+                Löffelholz von Kolberg in his 1505 technological illuminated manuscript, the so-called Löffelholz Codex,
+                on
+                folio
+                10r. One of the earliest known innovators to have created the modern office chair was naturalist Charles
+                Darwin, who
+                put wheels on the chair in his study so he could get to his specimens more quickly
+            </p>
+        </div>
+        <div id="inline-ar">
+            <button id="startBtn" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
+            <iframe id="my-iframe" src="./aframe_embedded_2.html"></iframe>
+        </div>
+        <div class="content">
+            <p>
+                With the advent of rail transport in the mid-19th century, businesses began to expand beyond the
+                traditional
+                model of a
+                family business with little emphasis on administration. The additional administrative staff was required
+                to
+                keep up with
+                orders, bookkeeping, and correspondence as businesses expanded their service areas. While office work
+                was
+                expanding, an
+                awareness of office environments, technology, and equipment became part of the cultural focus on
+                increasing
+                productivity. This awareness gave rise to chairs designed specifically for these new administrative
+                employees: office
+                chairs. This caught the attention of Otto von Bismarck, who is credited with popularizing the office
+                chair
+                by
+                distributing them throughout parliament during his time in office. American inventor Thomas E. Warren
+                (b.
+                1808),
+                designed the Centripetal Spring Armchair in 1849 which was produced by the American Chair Company in
+                Troy,
+                New York.
+                It was first presented at the 1851 Great Exhibition in London. It was only around 1850 when a group of
+                engineers in
+                the United States began to investigate how chairs could improve health and relaxation by stressing
+                posture
+                and movement.
+            </p>
+
+            <p>
+                The office chair was strategically designed to increase the productivity of clerical employees by making
+                it
+                possible for
+                them to remain sitting at their desks for long periods of time. A swiveling chair with casters allowed
+                employees to
+                remain sitting and yet reach a number of locations within their work area, eliminating the time and
+                energy
+                expended in
+                standing. The wooden saddle seat was designed to fit and support the body of a sitting employee, and the
+                slatted back
+                and armrests provided additional support to increase the employee’s comfort. Like modern chairs, many of
+                these models
+                were somewhat adjustable to provide the maximum comfort and thus the maximum working time.
+            </p>
+        </div>
+    </div>
+    <!--WebXR Script for World Tracking-->
+    <script>
+        const MAX_OBJECTS = 1;
+        let objects = [];
+
+        async function activateAR() {
+            //const canvas = document.createElement("canvas");
+            //document.body.appendChild(canvas);
+            $("#canvas").attr("hidden", "false");
+            const canvas = document.querySelector("#canvas");
+            const gl = canvas.getContext("webgl", { xrCompatible: true });
+
+            const scene = new THREE.Scene();
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+            directionalLight.position.set(0, 2, 0);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+
+            const planeGeometry = new THREE.PlaneGeometry(20, 20);
+            planeGeometry.rotateX(-Math.PI / 2);
+
+            const planeMaterial = new THREE.ShadowMaterial({ color: 0x111111, opacity: 0.5 });
+
+            const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+            shadowPlane.receiveShadow = true;
+            shadowPlane.position.y = 10000;
+            scene.add(shadowPlane);
+
+            const renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                preserveDrawingBuffer: true,
+                canvas: canvas,
+                context: gl
+            });
+            renderer.autoClear = false;
+            renderer.outputEncoding = THREE.sRGBEncoding;
+
+            const camera = new THREE.PerspectiveCamera();
+            camera.matrixAutoUpdate = false;
+
+            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay'], domOverlay: { root: document.body } });
+            session.updateRenderState({
+                baseLayer: new XRWebGLLayer(session, gl)
+            });
+
+            const referenceSpace = await session.requestReferenceSpace('local');
+            const viewerSpace = await session.requestReferenceSpace('viewer');
+            const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
+
+            const loader = new THREE.GLTFLoader();
+            let reticle;
+            loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function (gltf) {
+                reticle = gltf.scene;
+                reticle.scale.set(0.4, 0.4, 0.4);
+                reticle.visible = false;
+                scene.add(reticle);
+            })
+
+            let chair;
+            loader.load("https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf", function (gltf) {
+                chair = gltf.scene;
+                chair.scale.set(0.5, 0.5, 0.5);
+                chair.castShadow = true;
+                chair.receiveShadow = false;
+            });
+
+            session.addEventListener("select", (event) => {
+                if (chair) {
+                    const clone = chair.clone();
+                    clone.position.copy(reticle.position);
+                    scene.add(clone);
+
+                    objects.push(clone);
+                    if (objects.length > MAX_OBJECTS) {
+                        let oldObject = objects.shift();
+                        scene.remove(oldObject);
+                    }
+
+                    shadowPlane.position.y = clone.position.y;
+                }
+            });
+
+
+            const onXRFrame = (time, frame) => {
+                session.requestAnimationFrame(onXRFrame);
+
+                gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
+
+                const pose = frame.getViewerPose(referenceSpace);
+                if (pose) {
+                    const view = pose.views[0];
+
+                    const viewport = session.renderState.baseLayer.getViewport(view);
+                    renderer.setSize(viewport.width, viewport.height)
+
+                    camera.matrix.fromArray(view.transform.matrix)
+                    camera.projectionMatrix.fromArray(view.projectionMatrix);
+                    camera.updateMatrixWorld(true);
+
+                    const hitTestResults = frame.getHitTestResults(hitTestSource);
+
+                    if (hitTestResults.length > 0) {
+                        const hitPose = hitTestResults[0].getPose(referenceSpace);
+
+                        reticle.visible = true;
+                        reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z);
+                        reticle.updateMatrixWorld(true);
+                    }
+
+                    renderer.render(scene, camera)
+                }
+            }
+            session.requestAnimationFrame(onXRFrame);
+        }
+    </script>
+</body>
+
+</html>
