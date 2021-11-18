@@ -59,7 +59,7 @@
                 var distanceDifference = oldDistance - distance;
                 var modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
 
-                modelScale -= distanceDifference / 500;
+                modelScale -= distanceDifference / 200;
                 // Clamp scale.
                 modelScale = Math.min(Math.max(0.3, modelScale), 2.5);
 
