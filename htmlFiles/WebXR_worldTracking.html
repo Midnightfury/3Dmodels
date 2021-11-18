@@ -30,9 +30,10 @@
 </head>
 
 <body>
-    <a href="./webXr_hit_test_inline_2.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
+    <a href="./iframe_demo.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
             style="color: black; padding-right: 7px;"></i>GO BACK!</a>
-    <button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
+    <button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm" onclick="activateAR()">Start
+        AR</button>
     <!--WebXR Script for World Tracking-->
     <script>
         const MAX_OBJECTS = 1;
@@ -145,7 +146,7 @@
                 }
             }
             session.requestAnimationFrame(onXRFrame);
-        };
+        }
     </script>
 </body>
 
