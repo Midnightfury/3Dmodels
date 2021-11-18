@@ -23,6 +23,11 @@
         window.onload = publishDate;
     </script>
     <style>
+        .content-div {
+            position: absolute;
+            z-index: 0;
+        }
+
         #inline-ar {
             position: relative;
             display: block;
@@ -30,7 +35,6 @@
             max-height: 675px;
             height: 550px;
             margin: 0 auto;
-            z-index: 0;
         }
 
         iframe {
@@ -41,12 +45,10 @@
             height: 500px;
             margin-left: auto;
             margin-right: auto;
-            z-index: 0;
         }
 
         #startBtn {
             position: absolute;
-            z-index: 1;
             left: 15%;
             margin-top: 2%;
             transform: translateX(-50%);
@@ -55,7 +57,6 @@
             padding: 3px 0px 0px 3px;
             color: white;
             width: 25%;
-            z-index: 0;
         }
 
         body {
@@ -74,7 +75,6 @@
             font-weight: 600;
             font-size: large;
             font-style: oblique;
-            z-index: 0;
         }
 
         #date {
@@ -84,7 +84,6 @@
 
         .content {
             padding: 0px 2em;
-            z-index: 0;
         }
 
         .content h1 {
@@ -92,90 +91,108 @@
             font-style: italic;
             margin-top: 0.2em;
             margin-bottom: 0.5em;
-            z-index: 0;
         }
 
         p {
-            font-size: 1em;
+            font-size: 1.1em;
             line-height: 1.5em;
-            z-index: 0;
         }
     </style>
     <title>Inline AR WebXR Demo</title>
 </head>
 
 <body>
-    <div class="content">
-        <h1>Ergonomic Office Chair</h1>
+    <div class="content-div">
+        <div class="content">
+            <h1>Ergonomic Office Chair</h1>
 
-        <p class="author">TietoEVRY Inline AR example</p>
+            <p class="author">TietoEVRY Inline AR example</p>
 
-        <p><span id="date"></span></p>
-        <p>
-            An office chair, or desk chair, is a type of chair that is designed for use at a desk in an office. It is
-            usually a
-            swivel chair, with a set of wheels for mobility and adjustable height. Modern office chairs typically use a
-            single,
-            distinctive load bearing leg (often called a gas lift), which is positioned underneath the chair seat. Near
-            the floor
-            this leg spreads out into several smaller feet, which are often wheeled and called casters. Office chairs
-            were developed
-            around the mid-19th century as more workers spent their shifts sitting at a desk, leading to the adoption of
-            several
-            features not found on other chairs.
-        </p>
+            <p><span id="date"></span></p>
+            <p>
+                An office chair, or desk chair, is a type of chair that is designed for use at a desk in an office. It
+                is
+                usually a
+                swivel chair, with a set of wheels for mobility and adjustable height. Modern office chairs typically
+                use a
+                single,
+                distinctive load bearing leg (often called a gas lift), which is positioned underneath the chair seat.
+                Near
+                the floor
+                this leg spreads out into several smaller feet, which are often wheeled and called casters. Office
+                chairs
+                were developed
+                around the mid-19th century as more workers spent their shifts sitting at a desk, leading to the
+                adoption of
+                several
+                features not found on other chairs.
+            </p>
 
-        <p>
-            The concept of a height-adjustable, swivelling chair with castors was illustrated by the Nuremberg patrician
-            Martin
-            Löffelholz von Kolberg in his 1505 technological illuminated manuscript, the so-called Löffelholz Codex, on
-            folio
-            10r. One of the earliest known innovators to have created the modern office chair was naturalist Charles
-            Darwin, who
-            put wheels on the chair in his study so he could get to his specimens more quickly
-        </p>
+            <p>
+                The concept of a height-adjustable, swivelling chair with castors was illustrated by the Nuremberg
+                patrician
+                Martin
+                Löffelholz von Kolberg in his 1505 technological illuminated manuscript, the so-called Löffelholz Codex,
+                on
+                folio
+                10r. One of the earliest known innovators to have created the modern office chair was naturalist Charles
+                Darwin, who
+                put wheels on the chair in his study so he could get to his specimens more quickly
+            </p>
+        </div>
+        <div id="inline-ar">
+            <button type="button" id="startBtn" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
+            <iframe id="my-iframe" src="./aframe_embedded_2.html"></iframe>
+        </div>
+        <div class="content">
+            <p>
+                With the advent of rail transport in the mid-19th century, businesses began to expand beyond the
+                traditional
+                model of a
+                family business with little emphasis on administration. The additional administrative staff was required
+                to
+                keep up with
+                orders, bookkeeping, and correspondence as businesses expanded their service areas. While office work
+                was
+                expanding, an
+                awareness of office environments, technology, and equipment became part of the cultural focus on
+                increasing
+                productivity. This awareness gave rise to chairs designed specifically for these new administrative
+                employees: office
+                chairs. This caught the attention of Otto von Bismarck, who is credited with popularizing the office
+                chair
+                by
+                distributing them throughout parliament during his time in office. American inventor Thomas E. Warren
+                (b.
+                1808),
+                designed the Centripetal Spring Armchair in 1849 which was produced by the American Chair Company in
+                Troy,
+                New York.
+                It was first presented at the 1851 Great Exhibition in London. It was only around 1850 when a group of
+                engineers in
+                the United States began to investigate how chairs could improve health and relaxation by stressing
+                posture
+                and movement.
+            </p>
+
+            <p>
+                The office chair was strategically designed to increase the productivity of clerical employees by making
+                it
+                possible for
+                them to remain sitting at their desks for long periods of time. A swiveling chair with casters allowed
+                employees to
+                remain sitting and yet reach a number of locations within their work area, eliminating the time and
+                energy
+                expended in
+                standing. The wooden saddle seat was designed to fit and support the body of a sitting employee, and the
+                slatted back
+                and armrests provided additional support to increase the employee’s comfort. Like modern chairs, many of
+                these models
+                were somewhat adjustable to provide the maximum comfort and thus the maximum working time.
+            </p>
+        </div>
     </div>
-    <div id="inline-ar">
-        <button type="button" id="startBtn" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
-        <iframe id="my-iframe" src="./aframe_embedded_2.html"></iframe>
-    </div>
-    <div class="content">
-        <p>
-            With the advent of rail transport in the mid-19th century, businesses began to expand beyond the traditional
-            model of a
-            family business with little emphasis on administration. The additional administrative staff was required to
-            keep up with
-            orders, bookkeeping, and correspondence as businesses expanded their service areas. While office work was
-            expanding, an
-            awareness of office environments, technology, and equipment became part of the cultural focus on increasing
-            productivity. This awareness gave rise to chairs designed specifically for these new administrative
-            employees: office
-            chairs. This caught the attention of Otto von Bismarck, who is credited with popularizing the office chair
-            by
-            distributing them throughout parliament during his time in office. American inventor Thomas E. Warren (b.
-            1808),
-            designed the Centripetal Spring Armchair in 1849 which was produced by the American Chair Company in Troy,
-            New York.
-            It was first presented at the 1851 Great Exhibition in London. It was only around 1850 when a group of
-            engineers in
-            the United States began to investigate how chairs could improve health and relaxation by stressing posture
-            and movement.
-        </p>
-
-        <p>
-            The office chair was strategically designed to increase the productivity of clerical employees by making it
-            possible for
-            them to remain sitting at their desks for long periods of time. A swiveling chair with casters allowed
-            employees to
-            remain sitting and yet reach a number of locations within their work area, eliminating the time and energy
-            expended in
-            standing. The wooden saddle seat was designed to fit and support the body of a sitting employee, and the
-            slatted back
-            and armrests provided additional support to increase the employee’s comfort. Like modern chairs, many of
-            these models
-            were somewhat adjustable to provide the maximum comfort and thus the maximum working time.
-        </p>
-    </div>
+    <!--WebXR Script for World Tracking-->
     <script>
         const MAX_OBJECTS = 1;
         let objects = [];
@@ -183,7 +200,7 @@
         async function activateAR() {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
-            canvas.style.zIndex = "1";
+            canvas.style.zIndex = 1;
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
             const scene = new THREE.Scene();
