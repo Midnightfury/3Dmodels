@@ -58,10 +58,6 @@
             z-index: 0;
         }
 
-        /*#startBtn img {
-            margin: 5px 20px;
-        }*/
-
         body {
             position: absolute;
             top: 0;
@@ -140,9 +136,6 @@
         </p>
     </div>
     <div id="inline-ar">
-        <!--<button id="startBtn" onclick="activateAR()">
-            <img src="https://cdn.glitch.me/49721bba-e457-4722-a790-a1c75ed5184e%2Fstart-ar-banner.svg?v=1633422246784">
-        </button>-->
         <button type="button" id="startBtn" class="btn btn-primary btn-sm" onclick="activateAR()">Start AR</button>
         <iframe id="my-iframe" src="./aframe_embedded_2.html"></iframe>
     </div>
@@ -190,7 +183,7 @@
         async function activateAR() {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
-            canvas.style.zIndex = 1;
+            canvas.style.zIndex = "1";
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
             const scene = new THREE.Scene();
@@ -203,11 +196,11 @@
             const planeGeometry = new THREE.PlaneGeometry(20, 20);
             planeGeometry.rotateX(-Math.PI / 2);
 
-            const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x111111, opacity: 0.5 });
+            const planeMaterial = new THREE.ShadowMaterial({ color: 0x111111, opacity: 0.5 });
 
             const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
             shadowPlane.receiveShadow = true;
-            shadowPlane.position.y = 0;
+            shadowPlane.position.y = 10000;
             scene.add(shadowPlane);
 
             const renderer = new THREE.WebGLRenderer({
