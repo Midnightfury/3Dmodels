@@ -39,7 +39,7 @@
                 dX = this.oldClientX - evt.touches[0].clientX;
                 dY = this.oldClientY - evt.touches[0].clientY;
 
-                modelPivotEl.object3D.rotation.y -= dX / 200;
+                modelPivotEl.object3D.rotation.y -= dX / 100;
                 this.oldClientX = evt.touches[0].clientX;
 
                 modelPivotEl.object3D.rotation.x -= dY / 100;
@@ -61,7 +61,7 @@
 
                 modelScale -= distanceDifference / 500;
                 // Clamp scale.
-                modelScale = Math.min(Math.max(0.5, modelScale), 2.5);
+                modelScale = Math.min(Math.max(0.3, modelScale), 2.5);
 
                 modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
 
@@ -114,7 +114,7 @@
                 modelScale -= evt.deltaY / 100;
 
                 //Clamp model Scale
-                modelScale = Math.min(Math.max(0.1, modelScale), 3);
+                modelScale = Math.min(Math.max(0.3, modelScale), 2.5);
 
                 modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
 
