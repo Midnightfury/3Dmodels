@@ -18,46 +18,30 @@
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <!--Custom CSS-->
     <style>
-        body,
-        html {
-            margin: 0 auto;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-
         button {
             position: absolute;
             top: 3%;
             left: 2%;
             text-align: center;
-            z-index: 1;
-        }
 
-        #canvas {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
         }
     </style>
     <title></title>
 </head>
 
 <body>
-    <button class="btn btn-danger btn-sm"><a href="./webXr_hit_test_inline_2.html" style="color: whitesmoke;"><i
-                class="fa fa-chevron-left" style="color: black; padding-right: 7px;"></i>GO BACK!</a></button>
-    <canvas id="canvas"></canvas>
-    <!--<button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm" onclick="activateAR()">Start
-        AR</button>-->
+    <a href="./webXr_hit_test_inline_2.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
+            style="color: black; padding-right: 7px;"></i>GO BACK!</a>
+    <button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm"
+        onclick="activateAR()">Activate AR</button>
     <!--WebXR Script for World Tracking-->
     <script>
-        window.onload = async function activateAR() {
-            //const canvas = document.createElement("canvas");
-            //document.body.appendChild(canvas);
-            const canvas = document.querySelector("#canvas");
+        const MAX_OBJECTS = 1;
+        let objects = [];
+
+        async function activateAR() {
+            const canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
 
             const scene = new THREE.Scene();
@@ -115,7 +99,6 @@
                 chair.receiveShadow = false;
             });
 
-            let objects = [];
             session.addEventListener("select", (event) => {
                 if (chair) {
                     const clone = chair.clone();
@@ -123,7 +106,7 @@
                     scene.add(clone);
 
                     objects.push(clone);
-                    if (objects.length > 1) {
+                    if (objects.length > MAX_OBJECTS) {
                         let oldObject = objects.shift();
                         scene.remove(oldObject);
                     }
