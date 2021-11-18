@@ -37,7 +37,7 @@
         const MAX_OBJECTS = 1;
         let objects = [];
 
-        const activateAR = async () => {
+        const activateAR = () => {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
