@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Bootstrap & jQuery CDN-->
+    <!--Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--jQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!--Three.js CDN-->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -30,15 +33,12 @@
 </head>
 
 <body>
-    <button class="btn btn-danger btn-sm" style="color: whitesmoke;"><a href="./webXr_hit_test_inline_2.html"><i
+    <button class="btn btn-danger btn-sm"><a href="./webXr_hit_test_inline_2.html" style="color: whitesmoke;"><i
                 class="fa fa-chevron-left" style="color: black; padding-right: 7px;"></i>GO BACK!</a></button>
     <!--<button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm" onclick="activateAR()">Start
         AR</button>-->
     <!--WebXR Script for World Tracking-->
     <script>
-        const MAX_OBJECTS = 1;
-        let objects = [];
-
         window.onload = function activateAR() {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
@@ -99,6 +99,7 @@
                 chair.receiveShadow = false;
             });
 
+            let objects = [];
             session.addEventListener("select", (event) => {
                 if (chair) {
                     const clone = chair.clone();
@@ -106,7 +107,7 @@
                     scene.add(clone);
 
                     objects.push(clone);
-                    if (objects.length > MAX_OBJECTS) {
+                    if (objects.length > 1) {
                         let oldObject = objects.shift();
                         scene.remove(oldObject);
                     }
