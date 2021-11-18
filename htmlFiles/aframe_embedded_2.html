@@ -129,7 +129,6 @@
 <body>
     <a-scene timeout="30000" vr-mode-ui="enabled: false" style="background-color: rgba(131, 125, 125, 0.719);">
         <a-assets>
-            <!--<a-asset-item id="office_chair" src="./assets/claw_hammer/scene.gltf"></a-asset-item>-->
             <a-asset-item id="office_chair"
                 src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf">
             </a-asset-item>
@@ -152,10 +151,6 @@
         </a-entity>
 
         <a-entity id="modelPivot" class="cantap" touch-movement mouse-movement>
-            <!--<a-entity id="model" gltf-model="#office_chair" scale="1.7 1.7 1.7" position="0 0 0" rotation="0 0 0"
-                shadow="cast: true; receive: false"
-                animation="property: rotation; to: 0 360 0; loop: true; delay: 2000; duration: 1000; easing: easeInOutSine">
-            </a-entity>-->
             <a-entity id="model" gltf-model="#office_chair" scale="2.3 2.3 2.3" position="0 0 0" rotation="0 0 0"
                 shadow="cast: true; receive: false"></a-entity>
             <a-entity rotation="-90 0 0" geometry="primitive: plane; width: 30.0; height: 30.0;"
