@@ -37,7 +37,7 @@
         const MAX_OBJECTS = 1;
         let objects = [];
 
-        async function activateAR() {
+        const activateAR = async () => {
             const canvas = document.createElement("canvas");
             document.body.appendChild(canvas);
             const gl = canvas.getContext("webgl", { xrCompatible: true });
@@ -144,7 +144,7 @@
                 }
             }
             session.requestAnimationFrame(onXRFrame);
-        }
+        };
 
         window.onload = activateAR;
     </script>
