@@ -1,5 +1,6 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.134.0";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/loaders/GLTFLoader.js";
 
 const MAX_OBJECTS = 1;
 let objects = [];
@@ -55,7 +56,7 @@ async function activateAR() {
     space: viewerSpace,
   });
 
-  const loader = new THREE.GLTFLoader();
+  const loader = new GLTFLoader();
   let reticle;
   loader.load(
     "https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf",
