@@ -16,7 +16,6 @@
     <!--Three.js CDN-->
     <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
     <!--Custom CSS-->
     <style>
         a {
@@ -36,12 +35,17 @@
 </head>
 
 <body>
-    <a href="./webXr_hit_test_inline_2.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
+    <a href="./iframe_demo.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
             style="color: black; padding-right: 7px;"></i>GO BACK!</a>
     <button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm"
         onclick="activateAR()">Activate AR</button>
+
+    <button id="object-placement" style="position: absolute; top: 3%; right: 45%;" class="btn btn-info btn-sm">Place
+        Object</button>
     <!--WebXR Script for World Tracking-->
-    <script>
+    <script type="module">
+        import { OrbitControls } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js";
+
         const MAX_OBJECTS = 1;
         let objects = [];
 
@@ -79,7 +83,7 @@
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
-            const controls = new THREE.OrbitControls(camera, canvas);
+            const controls = new OrbitControls(camera, canvas);
             controls.enablePan = false;
             controls.update();
 
@@ -109,7 +113,8 @@
                 chair.receiveShadow = false;
             });
 
-            session.addEventListener("select", (event) => {
+            const objectPlacementBtn = document.querySelector("#object-placement");
+            objectPlacementBtn.addEventListener("click", (event) => {
                 if (chair) {
                     const clone = chair.clone();
                     clone.position.copy(reticle.position);
@@ -125,6 +130,21 @@
                 }
             });
 
+            /*session.addEventListener("select", (event) => {
+                if (chair) {
+                    const clone = chair.clone();
+                    clone.position.copy(reticle.position);
+                    scene.add(clone);
+
+                    objects.push(clone);
+                    if (objects.length > MAX_OBJECTS) {
+                        let oldObject = objects.shift();
+                        scene.remove(oldObject);
+                    }
+
+                    shadowPlane.position.y = clone.position.y;
+                }
+            });*/
 
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
