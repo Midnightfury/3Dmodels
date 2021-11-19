@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <a href="./iframe_demo.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
+    <a href="./webXr_hit_test_inline_2.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
             style="color: black; padding-right: 7px;"></i>GO BACK!</a>
     <button style="position: absolute; top: 3%; right: 2%;" class="btn btn-primary btn-sm"
         onclick="activateAR()">Activate AR</button>
@@ -43,8 +43,8 @@
     <button id="object-placement" style="position: absolute; top: 3%; right: 45%;" class="btn btn-info btn-sm">Place
         Object</button>
     <!--WebXR Script for World Tracking-->
-    <script type="module">
-        import { OrbitControls } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js";
+    <script>
+        //import { OrbitControls } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js";
 
         const MAX_OBJECTS = 1;
         let objects = [];
@@ -83,9 +83,9 @@
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
-            const controls = new OrbitControls(camera, canvas);
+            /*const controls = new OrbitControls(camera, canvas);
             controls.enablePan = false;
-            controls.update();
+            controls.update();*/
 
             const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay'], domOverlay: { root: document.body } });
             session.updateRenderState({
