@@ -65,6 +65,7 @@
             top: 3%;
             left: 4%;
             text-align: center;
+            z-index: 1;
         }
 
         #startBtn {
@@ -120,10 +121,9 @@
 </head>
 
 <body>
-    <canvas id="canvas" hidden="true">
-        <a href="./iframe_webXR.html" class="btn btn-danger btn-sm" role="button" id="backBtn"><i
-                class="fa fa-chevron-left" style="color: black; padding: 7px;"></i>GO BACK!</a>
-    </canvas>
+    <a href="./iframe_webXR.html" class="btn btn-danger btn-sm hidden" role="button" id="backBtn"><i
+            class="fa fa-chevron-left" style="color: black; padding: 7px;"></i>GO BACK!</a>
+    <canvas id="canvas" hidden="true"></canvas>
     <div class="content-div">
         <div class="content">
             <h1>Ergonomic Office Chair</h1>
@@ -222,6 +222,7 @@
         async function activateAR() {
             //const canvas = document.createElement("canvas");
             //document.body.appendChild(canvas);
+            $("#backBtn").toggleClass("hidden");
             $("#canvas").attr("hidden", "false");
             const canvas = document.querySelector("#canvas");
             const gl = canvas.getContext("webgl", { xrCompatible: true });
