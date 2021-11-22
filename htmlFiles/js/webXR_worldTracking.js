@@ -63,6 +63,9 @@ async function activateAR() {
     function (gltf) {
       reticle = gltf.scene;
       reticle.scale.set(0.4, 0.4, 0.4);
+      reticle.children[2].material.color = { r: 1, g: 0, b: 0 };
+      reticle.children[2].material.transparent = true;
+      reticle.children[2].material.opacity = 0.3;
       reticle.visible = false;
       scene.add(reticle);
     }
