@@ -4,6 +4,7 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/l
 
 const MAX_OBJECTS = 1;
 let objects = [];
+let oldClientX = 0;
 
 async function activateAR() {
   const canvas = document.createElement("canvas");
@@ -144,8 +145,22 @@ async function activateAR() {
 
       renderer.render(scene, camera);
     }
+
+    canvas.addEventListener("touchmove", function (evt) {
+      if (evt.touches.length == 1) {
+        RotateObject(evt);
+      }
+    });
   };
   session.requestAnimationFrame(onXRFrame);
 }
 
 document.querySelector("#start-ar").addEventListener("click", activateAR);
+
+function RotateObject(evt) {
+  var dX;
+  dX = oldClientX - evt.touches[0].clientX;
+
+  chair.rotation.y = chair.rotation.y - dX / 50;
+  oldClientX = evt.touches[0].clientX;
+}
