@@ -42,10 +42,6 @@ async function activateAR() {
   const camera = new THREE.PerspectiveCamera();
   camera.matrixAutoUpdate = false;
 
-  const controls = new OrbitControls(camera, canvas);
-  controls.enablePan = false;
-  controls.update();
-
   const session = await navigator.xr.requestSession("immersive-ar", {
     requiredFeatures: ["hit-test", "dom-overlay"],
     domOverlay: { root: document.body },
@@ -85,7 +81,7 @@ async function activateAR() {
 
   const objectPlacementBtn = document.querySelector("#object-placement");
   objectPlacementBtn.addEventListener("click", (event) => {
-    if (chair) {
+    if (chair && reticle.visible) {
       const clone = chair.clone();
       clone.position.copy(reticle.position);
       scene.add(clone);
@@ -97,6 +93,14 @@ async function activateAR() {
       }
 
       shadowPlane.position.y = clone.position.y;
+    }
+    reticle.visible = false;
+  });
+
+  const trackingToggleBtn = document.querySelector("#tracking-toggle");
+  trackingToggleBtn.addEventListener("click", function (event) {
+    if (!reticle.visible) {
+      reticle.visible = true;
     }
   });
 
@@ -118,8 +122,6 @@ async function activateAR() {
       camera.matrix.fromArray(view.transform.matrix);
       camera.projectionMatrix.fromArray(view.projectionMatrix);
       camera.updateMatrixWorld(true);
-
-      controls.update();
 
       const hitTestResults = frame.getHitTestResults(hitTestSource);
 
