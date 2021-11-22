@@ -5,7 +5,7 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/l
 const MAX_OBJECTS = 1;
 let objects = [];
 let oldClientX, oldDistance;
-let objectClone;
+let objectClone, actualObject;
 
 async function activateAR() {
   const canvas = document.createElement("canvas");
@@ -79,6 +79,7 @@ async function activateAR() {
     function (gltf) {
       chair = gltf.scene;
       chair.scale.set(0.5, 0.5, 0.5);
+      actualObject = chair;
       chair.castShadow = true;
       chair.receiveShadow = false;
     }
@@ -177,6 +178,9 @@ function RotateObject(evt) {
 
   objectClone.rotation.y = objectClone.rotation.y - dX / 50;
   oldClientX = evt.touches[0].clientX;
+
+  //Set actual object rotation equal to clone's
+  actualObject.rotation.y = objectClone.rotation.y;
 }
 
 function ScaleObject(evt) {
@@ -196,6 +200,9 @@ function ScaleObject(evt) {
 
   //set new scale
   objectClone.scale.set(modelScale, modelScale, modelScale);
+
+  //set actual object scale equal to clone's
+  actualObject.scale.set(modelScale, modelScale, modelScale);
 
   modelScale = modelScale;
   oldDistance = distance;
