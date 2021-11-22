@@ -161,6 +161,8 @@ document.querySelector("#start-ar").addEventListener("click", activateAR);
 
 function RotateObject(evt) {
   var dX;
+
+  oldClientX = oldClientX || evt.touches[0].clientX;
   dX = oldClientX - evt.touches[0].clientX;
 
   objectClone.rotation.y = objectClone.rotation.y - dX / 50;
