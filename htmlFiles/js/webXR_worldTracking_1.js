@@ -5,6 +5,7 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/l
 const MAX_OBJECTS = 1;
 let objects = [];
 let oldClientX = 0;
+let objectClone;
 
 async function activateAR() {
   const canvas = document.createElement("canvas");
@@ -88,6 +89,7 @@ async function activateAR() {
   objectPlacementBtn.addEventListener("click", (event) => {
     if (chair && visibleReticle) {
       const clone = chair.clone();
+      objectClone = clone;
       clone.position.copy(reticle.position);
       scene.add(clone);
 
@@ -161,6 +163,6 @@ function RotateObject(evt) {
   var dX;
   dX = oldClientX - evt.touches[0].clientX;
 
-  chair.rotation.y = chair.rotation.y - dX / 50;
+  objectClone.rotation.y = objectClone.rotation.y - dX / 50;
   oldClientX = evt.touches[0].clientX;
 }
