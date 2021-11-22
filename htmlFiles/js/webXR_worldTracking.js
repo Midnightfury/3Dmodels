@@ -95,12 +95,14 @@ async function activateAR() {
 
       shadowPlane.position.y = clone.position.y;
     }
+    scene.remove(reticle);
     visibleReticle = false;
   });
 
   const enableTrackingBtn = document.querySelector("#enable-tracking");
   enableTrackingBtn.addEventListener("click", function () {
     if (!visibleReticle) {
+      scene.add(reticle);
       visibleReticle = true;
     }
   });
