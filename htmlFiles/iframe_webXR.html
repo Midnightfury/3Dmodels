@@ -31,7 +31,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 1;
+            z-index: 10;
         }
 
         .content-div {
@@ -220,11 +220,11 @@
         async function activateAR() {
             //const canvas = document.createElement("canvas");
             //document.body.appendChild(canvas);
-            const canvas = document.querySelector("#canvas");
-            const gl = canvas.getContext("webgl", { xrCompatible: true });
-
             $("#backBtn").toggleClass("hidden");
             $("#canvas").toggleClass("hidden");
+
+            const canvas = document.querySelector("#canvas");
+            const gl = canvas.getContext("webgl", { xrCompatible: true });
 
             const scene = new THREE.Scene();
 
@@ -233,7 +233,7 @@
             directionalLight.castShadow = true;
             scene.add(directionalLight);
 
-            const planeGeometry = new THREE.PlaneGeometry(20, 20);
+            const planeGeometry = new THREE.PlaneGeometry(2, 2);
             planeGeometry.rotateX(-Math.PI / 2);
 
             const planeMaterial = new THREE.ShadowMaterial({ color: 0x111111, opacity: 0.5 });
