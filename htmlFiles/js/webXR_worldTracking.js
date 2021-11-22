@@ -42,6 +42,10 @@ async function activateAR() {
   const camera = new THREE.PerspectiveCamera();
   camera.matrixAutoUpdate = false;
 
+  const controls = new OrbitControls(camera, canvas);
+  controls.enablePan = false;
+  controls.update();
+
   const session = await navigator.xr.requestSession("immersive-ar", {
     requiredFeatures: ["hit-test", "dom-overlay"],
     domOverlay: { root: document.body },
@@ -114,6 +118,8 @@ async function activateAR() {
       camera.matrix.fromArray(view.transform.matrix);
       camera.projectionMatrix.fromArray(view.projectionMatrix);
       camera.updateMatrixWorld(true);
+
+      controls.update();
 
       const hitTestResults = frame.getHitTestResults(hitTestSource);
 
