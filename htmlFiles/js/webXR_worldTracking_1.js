@@ -4,7 +4,8 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/l
 
 const MAX_OBJECTS = 1;
 let objects = [];
-let oldClientX = 0;
+let oldClientX = 0,
+  oldDistance = 0;
 let objectClone;
 
 async function activateAR() {
@@ -151,6 +152,8 @@ async function activateAR() {
     canvas.addEventListener("touchmove", function (evt) {
       if (evt.touches.length == 1) {
         RotateObject(evt);
+      } else if (evt.touches.length == 2) {
+        ScaleObject(evt);
       }
     });
   };
@@ -167,4 +170,26 @@ function RotateObject(evt) {
 
   objectClone.rotation.y = objectClone.rotation.y - dX / 50;
   oldClientX = evt.touches[0].clientX;
+}
+
+function ScaleObject(evt) {
+  var dX, dY, distance, distanceDifference, modelScale;
+  dX = evt.touches[0].clientX - evt.touches[1].clientX;
+  dY = evt.touches[0].clientY - evt.touches[1].clientY;
+
+  distance = Math.sqrt(dX * dX + dY * dY);
+  oldDistance = oldDistance || distance;
+  distanceDifference = oldDistance - distance;
+  modelScale = objectClone.scale.x;
+
+  modelScale -= distanceDifference / 200;
+
+  //Clamp scale
+  modelScale = Math.min(Math.max(0.3, modelScale), 2.5);
+
+  //set new scale
+  objectClone.scale.set(modelScale, modelScale, modelScale);
+
+  modelScale = modelScale;
+  oldDistance = distance;
 }
