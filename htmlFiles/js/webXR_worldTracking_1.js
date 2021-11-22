@@ -4,8 +4,7 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/l
 
 const MAX_OBJECTS = 1;
 let objects = [];
-let oldClientX = 0,
-  oldDistance = 0;
+let oldClientX, oldDistance;
 let objectClone;
 
 async function activateAR() {
@@ -149,11 +148,19 @@ async function activateAR() {
       renderer.render(scene, camera);
     }
 
+    //Rotate and Scale Events
     canvas.addEventListener("touchmove", function (evt) {
       if (evt.touches.length == 1) {
         RotateObject(evt);
       } else if (evt.touches.length == 2) {
         ScaleObject(evt);
+      }
+    });
+
+    canvas.addEventListener("touchend", function (evt) {
+      oldClientX = undefined;
+      if (evt.touches.length < 2) {
+        oldDistance = undefined;
       }
     });
   };
