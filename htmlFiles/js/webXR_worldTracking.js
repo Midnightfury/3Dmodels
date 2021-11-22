@@ -79,6 +79,7 @@ async function activateAR() {
     }
   );
 
+  let visibleReticle = true;
   const objectPlacementBtn = document.querySelector("#object-placement");
   objectPlacementBtn.addEventListener("click", (event) => {
     if (chair && reticle.visible) {
@@ -94,13 +95,13 @@ async function activateAR() {
 
       shadowPlane.position.y = clone.position.y;
     }
-    reticle.visible = false;
+    visibleReticle = false;
   });
 
-  const trackingToggleBtn = document.querySelector("#tracking-toggle");
-  trackingToggleBtn.addEventListener("click", function (event) {
-    if (!reticle.visible) {
-      reticle.visible = true;
+  const enableTrackingBtn = document.querySelector("#enable-tracking");
+  enableTrackingBtn.addEventListener("click", function () {
+    if (!visibleReticle) {
+      visibleReticle = true;
     }
   });
 
@@ -125,7 +126,7 @@ async function activateAR() {
 
       const hitTestResults = frame.getHitTestResults(hitTestSource);
 
-      if (hitTestResults.length > 0) {
+      if (hitTestResults.length > 0 && visibleReticle) {
         const hitPose = hitTestResults[0].getPose(referenceSpace);
 
         reticle.visible = true;
