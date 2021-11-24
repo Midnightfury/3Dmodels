@@ -151,9 +151,9 @@ async function activateAR() {
 
     //Rotate and Scale Events
     canvas.addEventListener("touchmove", function (evt) {
-      if (evt.touches.length == 1 && IsVerticalSwipe(evt)) {
+      if (evt.touches.length == 1 && VerticalHorizontalSwipe(evt) == 1) {
         TranslateObject(evt);
-      } else if (evt.touches.length == 1 && IsHorizontalSwipe(evt)) {
+      } else if (evt.touches.length == 1 && VerticalHorizontalSwipe(evt) == 2) {
         RotateObject(evt);
       } else if (evt.touches.length == 2) {
         ScaleObject(evt);
@@ -176,24 +176,14 @@ async function activateAR() {
 
 document.querySelector("#start-ar").addEventListener("click", activateAR);
 
-function IsVerticalSwipe(evt) {
+function VerticalHorizontalSwipe(evt) {
   var verticalSwipe = Math.abs(evt.touches[0].clientY - initialTouchY);
   var horizontalSwipe = Math.abs(evt.touches[0].clientX - initialTouchX);
 
   if (verticalSwipe > horizontalSwipe) {
-    return true;
-  }
-
-  initialTouchX = evt.touches[0].clientX;
-  initialTouchY = evt.touches[0].clientY;
-}
-
-function IsHorizontalSwipe(evt) {
-  var verticalSwipe = Math.abs(evt.touches[0].clientY - initialTouchY);
-  var horizontalSwipe = Math.abs(evt.touches[0].clientX - initialTouchX);
-
-  if (verticalSwipe < horizontalSwipe) {
-    return true;
+    return 1;
+  } else if (horizontalSwipe > verticalSwipe) {
+    return 2;
   }
 
   initialTouchX = evt.touches[0].clientX;
@@ -244,6 +234,6 @@ function TranslateObject(evt) {
   oldClientY = oldClientY || evt.touches[0].clientY;
   dY = oldClientY - evt.touches[0].clientY;
 
-  objectClone.position.z = objectClone.position.z - dY / 100;
+  objectClone.position.z = objectClone.position.z + dY / 200;
   oldClientY = evt.touches[0].clientY;
 }
