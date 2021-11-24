@@ -234,6 +234,6 @@ function TranslateObject(evt) {
   oldClientY = oldClientY || evt.touches[0].clientY;
   dY = oldClientY - evt.touches[0].clientY;
 
-  objectClone.position.z = objectClone.position.z + dY / 200;
+  objectClone.position.z = objectClone.position.z - dY / 100;
   oldClientY = evt.touches[0].clientY;
 }
