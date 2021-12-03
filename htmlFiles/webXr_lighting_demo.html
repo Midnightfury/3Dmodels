@@ -24,7 +24,7 @@
             color: rgba(255, 0, 0, 0.8);
             background-color: rgba(115, 209, 209, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: x-small;
+            font-size: small;
             font-weight: 600;
             border-radius: 7px;
         }
@@ -33,7 +33,7 @@
             color: rgba(9, 51, 240, 0.8);
             background-color: rgba(190, 174, 174, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: x-small;
+            font-size: small;
             font-weight: 600;
             border-radius: 7px;
         }
@@ -140,7 +140,6 @@
                 }
             });
 
-            //let lightSphericalHarmonics = new Float32Array();
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
 
@@ -149,8 +148,8 @@
                 const pose = frame.getViewerPose(referenceSpace);
                 const lightEstimate = frame.getLightEstimate(lightProbe);
 
-                document.querySelector("#content-intensity").innerHTML = `R = ${lightEstimate.primaryLightIntensity.x}, G = ${lightEstimate.primaryLightIntensity.y}, B = ${lightEstimate.primaryLightIntensity.z}`;
-                document.querySelector("#content-direction").innerHTML = `X = ${lightEstimate.primaryLightDirection.x}, Y = ${lightEstimate.primaryLightDirection.y}, Z = ${lightEstimate.primaryLightDirection.z}`;
+                document.querySelector("#content-intensity").innerHTML = `R = ${(lightEstimate.primaryLightIntensity.x).toFixed(4)}, G = ${(lightEstimate.primaryLightIntensity.y).toFixed(4)}, B = ${(lightEstimate.primaryLightIntensity.z).toFixed(4)}, W = ${lightEstimate.primaryLightIntensity.w}`;
+                document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(4)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(4)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(4)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
                 if (pose) {
                     const view = pose.views[0];
