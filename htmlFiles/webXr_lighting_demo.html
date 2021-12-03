@@ -17,7 +17,25 @@
         .lightestimate-intensity-value {
             position: absolute;
             bottom: 5%;
-            right: 40%;
+            left: 5%;
+        }
+
+        #content-intensity {
+            color: rgba(255, 0, 0, 0.8);
+            background-color: rgba(115, 209, 209, 0.6);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: x-small;
+            font-weight: 600;
+            border-radius: 7px;
+        }
+
+        #content-direction {
+            color: rgba(9, 51, 240, 0.8);
+            background-color: rgba(190, 174, 174, 0.6);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: x-small;
+            font-weight: 600;
+            border-radius: 7px;
         }
     </style>
     <title>WebXR Demo</title>
@@ -36,7 +54,9 @@
         <div class="col-xs-2"></div>
     </div>
     <div class="lightestimate-intensity-value">
-        <p id="content"></p>
+        <p id="content-intensity"></p>
+        <br>
+        <p id="content-direction"></p>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -104,7 +124,7 @@
                 chair.receiveShadow = false;
             });
 
-            session.addEventListener("select", (event) => {
+            document.querySelector("#place-object").addEventListener("click", (event) => {
                 if (chair) {
                     const clone = chair.clone();
                     clone.position.copy(reticle.position);
@@ -129,7 +149,8 @@
                 const pose = frame.getViewerPose(referenceSpace);
                 const lightEstimate = frame.getLightEstimate(lightProbe);
 
-                document.querySelector("#content").innerHTML = `x = ${lightEstimate.primaryLightIntensity.x}, y = ${lightEstimate.primaryLightIntensity.y}, z = ${lightEstimate.primaryLightIntensity.z}, w = ${lightEstimate.primaryLightIntensity.w}`;
+                document.querySelector("#content-intensity").innerHTML = `R = ${lightEstimate.primaryLightIntensity.x}, G = ${lightEstimate.primaryLightIntensity.y}, B = ${lightEstimate.primaryLightIntensity.z}`;
+                document.querySelector("#content-direction").innerHTML = `X = ${lightEstimate.primaryLightDirection.x}, Y = ${lightEstimate.primaryLightDirection.y}, Z = ${lightEstimate.primaryLightDirection.z}`;
 
                 if (pose) {
                     const view = pose.views[0];
