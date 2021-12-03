@@ -129,6 +129,8 @@
                 const pose = frame.getViewerPose(referenceSpace);
                 const lightEstimate = frame.getLightEstimate(lightProbe);
 
+                document.querySelector("#content").innerHTML = lightEstimate.primaryLightIntensity.w;
+
                 if (pose) {
                     const view = pose.views[0];
 
