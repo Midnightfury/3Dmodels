@@ -150,7 +150,7 @@
                 const lightEstimate = frame.getLightEstimate(lightProbe);
 
                 document.querySelector("#content-intensity").innerHTML = `R = ${lightEstimate.primaryLightIntensity.x}, G = ${lightEstimate.primaryLightIntensity.y}, B = ${lightEstimate.primaryLightIntensity.z}`;
-                document.querySelector("#content-direction").innerHTML = `X = ${lightEstimate.primaryLightDirection.x}, Y = ${lightEstimate.primaryLightDirection.y}, Z = ${lightEstimate.primaryLightDirection.z}`;
+                document.querySelector("#content-direction").innerHTML = `X = ${lightEstimate.primaryLightDirection.x}, Y = ${lightEstimate.primaryLightDirection.y}, Z = ${lightEstimate.primaryLightDirection.z}, W = ${lightEstimate.primaryLightDirection.w}`;
 
                 if (pose) {
                     const view = pose.views[0];
