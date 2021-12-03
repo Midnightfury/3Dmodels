@@ -85,7 +85,7 @@
             const viewerSpace = await session.requestReferenceSpace('viewer');
             const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
 
-            const lightProbe = await sesison.requestLightProbe();
+            const lightProbe = await session.requestLightProbe();
 
             const loader = new THREE.GLTFLoader();
             let reticle;
