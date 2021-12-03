@@ -85,7 +85,8 @@
             const viewerSpace = await session.requestReferenceSpace('viewer');
             const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
 
-            //const lightProbe = await sesison.requestLightProbe();
+            const lightProbe = await sesison.requestLightProbe();
+            document.querySelector("#content").innerHTML = lightProbe;
 
             const loader = new THREE.GLTFLoader();
             let reticle;
@@ -151,8 +152,6 @@
 
                     renderer.render(scene, camera)
                 }
-
-                //alert(lightEstimate.primaryLightIntensity);
             }
             session.requestAnimationFrame(onXRFrame);
         }
