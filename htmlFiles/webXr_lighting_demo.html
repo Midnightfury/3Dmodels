@@ -76,7 +76,7 @@
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
-            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay'], domOverlay: { root: document.body } });
+            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay', 'light-estimation'], domOverlay: { root: document.body } });
             session.updateRenderState({
                 baseLayer: new XRWebGLLayer(session, gl)
             });
@@ -85,7 +85,7 @@
             const viewerSpace = await session.requestReferenceSpace('viewer');
             const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
 
-            //const lightProbe = await sesison.requestLightProbe();
+            const lightProbe = await sesison.requestLightProbe();
 
             const loader = new THREE.GLTFLoader();
             let reticle;
@@ -127,7 +127,7 @@
                 gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
 
                 const pose = frame.getViewerPose(referenceSpace);
-                //const lightEstimate = frame.getLightEstimate(lightProbe);
+                const lightEstimate = frame.getLightEstimate(lightProbe);
 
                 if (pose) {
                     const view = pose.views[0];
