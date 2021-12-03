@@ -120,7 +120,7 @@
                 }
             });
 
-            let lightSphericalHarmonics = new Float32Array();
+            //let lightSphericalHarmonics = new Float32Array();
             const onXRFrame = (time, frame) => {
                 session.requestAnimationFrame(onXRFrame);
 
@@ -128,10 +128,6 @@
 
                 const pose = frame.getViewerPose(referenceSpace);
                 const lightEstimate = frame.getLightEstimate(lightProbe);
-
-                //lightSphericalHarmonics = lightEstimate.sphericalHarmonicsCoefficients;
-
-                document.querySelector("#content").innerHTML = lightEstimate.primaryLightIntensity;
 
                 if (pose) {
                     const view = pose.views[0];
@@ -155,6 +151,8 @@
 
                     renderer.render(scene, camera)
                 }
+
+                alert(lightEstimate.primaryLightIntensity);
             }
             session.requestAnimationFrame(onXRFrame);
         }
