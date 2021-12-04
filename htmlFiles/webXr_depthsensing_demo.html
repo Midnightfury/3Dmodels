@@ -47,13 +47,13 @@
             border-radius: 7px;
         }
 
-        .depth-info {
+        .depth-sensing-values {
             position: absolute;
             bottom: 5%;
             left: 5%;
         }
 
-        #depth-usage {
+        #depth-info {
             color: rgba(255, 0, 0, 0.8);
             background-color: rgba(115, 209, 209, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -84,8 +84,8 @@
         <br>
         <p id="directional-light-value"></p>
     </div>-->
-    <div class="depth-info">
-        <p id="depth-usage"></p>
+    <div class="depth-sensing-values">
+        <p id="depth-info"></p>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -125,18 +125,18 @@
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
-            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay', 'light-estimation', 'depth-sensing'], domOverlay: { root: document.body }, depthSensing: { usagePreference: ["cpu-optimized", "gpu-optimized"], formatPreference: ["luminance-alpha", "float32"] } });
+            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay', 'light-estimation', 'depth-sensing'], depthSensing: { usagePreference: ["cpu-optimized", "gpu-optimized"], formatPreference: ["luminance-alpha", "float32"] }, domOverlay: { root: document.body } });
             session.updateRenderState({
                 baseLayer: new XRWebGLLayer(session, gl)
             });
-
-            document.querySelector("#depth-usage").innerHTML = `depth-usage: ${session.depthUsage} & depth-format ${session.depthDataFormat}`;
 
             const referenceSpace = await session.requestReferenceSpace('local');
             const viewerSpace = await session.requestReferenceSpace('viewer');
             const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
 
             //const lightProbe = await session.requestLightProbe();
+
+            document.querySelector("#depth-info").innerHTML = `depth-usage: ${session.depthUsage} & depth Data Format: ${session.depthDataFormat}`;
 
             const loader = new THREE.GLTFLoader();
             let reticle;
@@ -179,13 +179,13 @@
                 gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
 
                 const pose = frame.getViewerPose(referenceSpace);
-                //const lightEstimate = frame.getLightEstimate(lightProbe);
+                /*const lightEstimate = frame.getLightEstimate(lightProbe);
 
-                //document.querySelector("#content-intensity").innerHTML = `R = ${(lightEstimate.primaryLightIntensity.x).toFixed(5)}, G = ${(lightEstimate.primaryLightIntensity.y).toFixed(5)}, B = ${(lightEstimate.primaryLightIntensity.z).toFixed(5)}, W = ${lightEstimate.primaryLightIntensity.w}`;
-                //document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
+                document.querySelector("#content-intensity").innerHTML = `R = ${(lightEstimate.primaryLightIntensity.x).toFixed(5)}, G = ${(lightEstimate.primaryLightIntensity.y).toFixed(5)}, B = ${(lightEstimate.primaryLightIntensity.z).toFixed(5)}, W = ${lightEstimate.primaryLightIntensity.w}`;
+                document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
-                //directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
-                //document.querySelector("#directional-light-value").innerHTML = directionalLight.intensity;
+                directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
+                document.querySelector("#directional-light-value").innerHTML = directionalLight.intensity;*/
 
                 if (pose) {
                     const view = pose.views[0];
