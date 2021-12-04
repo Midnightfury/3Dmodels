@@ -24,7 +24,7 @@
             color: rgba(255, 0, 0, 0.8);
             background-color: rgba(115, 209, 209, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: small;
+            font-size: x-small;
             font-weight: 600;
             border-radius: 7px;
         }
@@ -33,7 +33,16 @@
             color: rgba(9, 51, 240, 0.8);
             background-color: rgba(190, 174, 174, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: small;
+            font-size: x-small;
+            font-weight: 600;
+            border-radius: 7px;
+        }
+
+        #directional-light-value {
+            color: rgba(9, 51, 240, 0.8);
+            background-color: rgba(190, 174, 174, 0.6);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: x-small;
             font-weight: 600;
             border-radius: 7px;
         }
@@ -57,6 +66,8 @@
         <p id="content-intensity"></p>
         <br>
         <p id="content-direction"></p>
+        <br>
+        <p id="directional-light-value"></p>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -70,7 +81,7 @@
             const scene = new THREE.Scene();
 
             const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-            directionalLight.position.set(0, 2, 0);
+            directionalLight.position.set(-2, 2, 0);
             directionalLight.castShadow = true;
             scene.add(directionalLight);
 
@@ -130,6 +141,8 @@
                     clone.position.copy(reticle.position);
                     scene.add(clone);
 
+                    directionalLight.target = clone;
+
                     objects.push(clone);
                     if (objects.length > MAX_OBJECTS) {
                         let oldObject = objects.shift();
@@ -148,8 +161,11 @@
                 const pose = frame.getViewerPose(referenceSpace);
                 const lightEstimate = frame.getLightEstimate(lightProbe);
 
-                document.querySelector("#content-intensity").innerHTML = `R = ${(lightEstimate.primaryLightIntensity.x).toFixed(4)}, G = ${(lightEstimate.primaryLightIntensity.y).toFixed(4)}, B = ${(lightEstimate.primaryLightIntensity.z).toFixed(4)}, W = ${lightEstimate.primaryLightIntensity.w}`;
-                document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(4)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(4)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(4)}, W = ${lightEstimate.primaryLightDirection.w}`;
+                document.querySelector("#content-intensity").innerHTML = `R = ${(lightEstimate.primaryLightIntensity.x).toFixed(5)}, G = ${(lightEstimate.primaryLightIntensity.y).toFixed(5)}, B = ${(lightEstimate.primaryLightIntensity.z).toFixed(5)}, W = ${lightEstimate.primaryLightIntensity.w}`;
+                document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
+
+                directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
+                document.querySelector("#directional-light-value").innerHTML = directionalLight.intensity;
 
                 if (pose) {
                     const view = pose.views[0];
