@@ -20,6 +20,12 @@
             left: 5%;
         }
 
+        .depth-sensing-values {
+            position: absolute;
+            bottom: 15%;
+            right: 5%;
+        }
+
         #content-intensity {
             color: rgba(255, 0, 0, 0.8);
             background-color: rgba(115, 209, 209, 0.6);
@@ -47,12 +53,6 @@
             border-radius: 7px;
         }
 
-        .depth-sensing-values {
-            position: absolute;
-            bottom: 5%;
-            left: 5%;
-        }
-
         #depth-info {
             color: rgba(255, 0, 0, 0.8);
             background-color: rgba(115, 209, 209, 0.6);
@@ -77,13 +77,13 @@
         </div>
         <div class="col-xs-2"></div>
     </div>
-    <!--<div class="lightestimate-intensity-value">
+    <div class="lightestimate-intensity-value">
         <p id="content-intensity"></p>
         <br>
         <p id="content-direction"></p>
         <br>
         <p id="directional-light-value"></p>
-    </div>-->
+    </div>
     <div class="depth-sensing-values">
         <p id="depth-info"></p>
     </div>
@@ -134,9 +134,9 @@
             const viewerSpace = await session.requestReferenceSpace('viewer');
             const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
 
-            //const lightProbe = await session.requestLightProbe();
+            const lightProbe = await session.requestLightProbe();
 
-            document.querySelector("#depth-info").innerHTML = `depth-usage: ${session.depthUsage} & depth Data Format: ${session.depthFormat}`;
+            //document.querySelector("#depth-info").innerHTML = `depth-usage: ${session.depthUsage} & depth Data Format: ${session.depthDataFormat}`;
 
             const loader = new THREE.GLTFLoader();
             let reticle;
@@ -179,13 +179,13 @@
                 gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer)
 
                 const pose = frame.getViewerPose(referenceSpace);
-                /*const lightEstimate = frame.getLightEstimate(lightProbe);
+                const lightEstimate = frame.getLightEstimate(lightProbe);
 
                 document.querySelector("#content-intensity").innerHTML = `R = ${(lightEstimate.primaryLightIntensity.x).toFixed(5)}, G = ${(lightEstimate.primaryLightIntensity.y).toFixed(5)}, B = ${(lightEstimate.primaryLightIntensity.z).toFixed(5)}, W = ${lightEstimate.primaryLightIntensity.w}`;
                 document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
                 directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
-                document.querySelector("#directional-light-value").innerHTML = directionalLight.intensity;*/
+                document.querySelector("#directional-light-value").innerHTML = directionalLight.intensity;
 
                 if (pose) {
                     const view = pose.views[0];
