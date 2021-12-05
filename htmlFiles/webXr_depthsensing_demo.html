@@ -189,7 +189,7 @@
                 document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
                 directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
-                document.querySelector("#directional-light-value").innerHTML = directionalLight.intensity;
+                document.querySelector("#directional-light-value").innerHTML = `directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
 
                 if (pose) {
                     const view = pose.views[0];
@@ -215,7 +215,7 @@
 
                     if (depthInfo) {
                         const depthInMeters = depthInfo.getDepthInMeters(0.25, 0.75);
-                        document.querySelector("#depth-in-meters").innerHTML = depthInMeters.toFixed(4);
+                        document.querySelector("#depth-in-meters").innerHTML = `Depth in Meters: ${depthInMeters.toFixed(4)}`;
                     }
                     else {
                         document.querySelector("#depth-in-meters").innerHTML = "depth inofrmation not available from viewer pose";
