@@ -125,7 +125,7 @@
             const camera = new THREE.PerspectiveCamera();
             camera.matrixAutoUpdate = false;
 
-            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay', 'light-estimation', 'depth-sensing'], depthSensing: { usagePreference: ['cpu-optimized', 'gpu-optimized'], formatPreference: ['luminance-alpha', 'float32'] }, domOverlay: { root: document.body } });
+            const session = await navigator.xr.requestSession("immersive-ar", { requiredFeatures: ['hit-test', 'dom-overlay', 'light-estimation', "depth-sensing"], depthSensing: { usagePreference: ["cpu-optimized", "gpu-optimized"], dataFormatPreference: ["luminance-alpha", "float32"] }, domOverlay: { root: document.body } });
             session.updateRenderState({
                 baseLayer: new XRWebGLLayer(session, gl)
             });
