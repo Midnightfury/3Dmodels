@@ -39,8 +39,8 @@
         }
 
         #directional-light-value {
-            color: rgba(9, 51, 240, 0.8);
-            background-color: rgba(190, 174, 174, 0.6);
+            color: rgba(236, 118, 118, 0.8);
+            background-color: rgba(56, 52, 52, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: x-small;
             font-weight: 600;
@@ -55,7 +55,7 @@
             font-weight: 600;
             border-radius: 7px;
         }
-        
+
         #depth-in-meters {
             color: rgba(9, 51, 240, 0.8);
             background-color: rgba(190, 174, 174, 0.6);
@@ -216,6 +216,9 @@
                     if (depthInfo) {
                         const depthInMeters = depthInfo.getDepthInMeters(0.25, 0.75);
                         document.querySelector("#depth-in-meters").innerHTML = depthInMeters.toFixed(4);
+                    }
+                    else {
+                        document.querySelector("#depth-in-meters").innerHTML = "depth inofrmation not available from viewer pose";
                     }
 
                     renderer.render(scene, camera)
