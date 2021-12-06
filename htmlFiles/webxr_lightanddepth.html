@@ -39,8 +39,8 @@
         }
 
         #directional-light-value {
-            color: rgba(240, 13, 13, 0.8);
-            background-color: rgba(32, 30, 30, 0.6);
+            color: rgba(240, 9, 9, 0.8);
+            background-color: rgba(243, 234, 234, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: x-small;
             font-weight: 600;
@@ -59,6 +59,15 @@
         #depth-in-meters {
             color: rgba(9, 51, 240, 0.8);
             background-color: rgba(190, 174, 174, 0.6);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: x-small;
+            font-weight: 600;
+            border-radius: 7px;
+        }
+
+        #depth-info-matrix-dim {
+            color: rgba(240, 9, 9, 0.8);
+            background-color: rgba(243, 234, 234, 0.6);
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: x-small;
             font-weight: 600;
@@ -90,6 +99,8 @@
         <p id="depth-info"></p>
         <br>
         <p id="depth-in-meters"></p>
+        <br>
+        <p id="depth-info-matrix-dim"></p>
     </div>
     <script>
         const MAX_OBJECTS = 1;
@@ -215,11 +226,12 @@
 
                     if (depthInfo) {
                         const depthInMeters = depthInfo.getDepthInMeters(0.25, 0.75);
-                        //document.querySelector("#depth-in-meters").innerHTML = `Depth in Meters: ${depthInMeters.toFixed(4)}`;
-                        document.querySelector("#depth-in-meters").innerHTML = `Depth-info width: ${depthInfo.width}, Depth-info height: ${depthInfo.height}`;
+                        document.querySelector("#depth-in-meters").innerHTML = `Depth in Meters: ${depthInMeters.toFixed(4)}`;
+                        document.querySelector("#depth-info-matrix-dim").innerHTML = `Depth-info width: ${depthInfo.width}, Depth-info height: ${depthInfo.height}`;
                     }
                     else {
                         document.querySelector("#depth-in-meters").innerHTML = "depth information not available from viewer pose";
+                        document.querySelector("#depth-info-matrix-dim").innerHTML = "depth information not available from viewer pose";
                     }
 
                     renderer.render(scene, camera)
