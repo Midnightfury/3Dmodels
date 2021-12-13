@@ -47,6 +47,15 @@
             border-radius: 7px;
         }
 
+        #directional-light-vector3 {
+            color: rgba(240, 9, 9, 0.8);
+            background-color: rgba(243, 234, 234, 0.6);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: x-small;
+            font-weight: 600;
+            border-radius: 7px;
+        }
+
         #depth-info {
             color: rgba(255, 0, 0, 0.8);
             background-color: rgba(115, 209, 209, 0.6);
@@ -74,7 +83,7 @@
             border-radius: 7px;
         }
     </style>
-    <title>WebXR Demo</title>
+    <title>WebXR Light and Depth Demo</title>
 </head>
 
 <body>
@@ -91,15 +100,11 @@
     </div>
     <div class="lightestimate-depthsensing">
         <p id="content-intensity"></p>
-        <br>
         <p id="content-direction"></p>
-        <br>
         <p id="directional-light-value"></p>
-        <br>
+        <p id="directional-light-vector3"></p>
         <p id="depth-info"></p>
-        <br>
         <p id="depth-in-meters"></p>
-        <br>
         <p id="depth-info-matrix-dim"></p>
     </div>
     <script>
@@ -200,7 +205,10 @@
                 document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
                 directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
+                directionalLight.position.set((1 + lightEstimate.primaryLightDirection.x), (1 + lightEstimate.primaryLightDirection.y), (-1 + lightEstimate.primaryLightDirection.z));
+
                 document.querySelector("#directional-light-value").innerHTML = `directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
+                document.querySelector("#directional-light-vector3").innerHTML = `directional Light Vector3 : ${directionalLight.position.x}, ${directionalLight.position.y}, ${directionalLight.position.z}`;
 
                 if (pose) {
                     const view = pose.views[0];
@@ -225,7 +233,7 @@
                     }
 
                     if (depthInfo) {
-                        const depthInMeters = depthInfo.getDepthInMeters(0.25, 0.75);
+                        const depthInMeters = depthInfo.getDepthInMeters(0.5, 0.5);
                         document.querySelector("#depth-in-meters").innerHTML = `Depth in Meters: ${depthInMeters.toFixed(4)}`;
                         document.querySelector("#depth-info-matrix-dim").innerHTML = `Depth-info width: ${depthInfo.width}, Depth-info height: ${depthInfo.height}`;
                     }
