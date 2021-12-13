@@ -208,7 +208,7 @@
                 directionalLight.position.set((1 + lightEstimate.primaryLightDirection.x), (1 + lightEstimate.primaryLightDirection.y), (-1 + lightEstimate.primaryLightDirection.z));
 
                 document.querySelector("#directional-light-value").innerHTML = `directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
-                document.querySelector("#directional-light-vector3").innerHTML = `directional Light Vector3 : ${directionalLight.position.x}, ${directionalLight.position.y}, ${directionalLight.position.z}`;
+                document.querySelector("#directional-light-vector3").innerHTML = `directional Light Vector3 : ${directionalLight.position.x.toFixed(5)}, ${directionalLight.position.y.toFixed(5)}, ${directionalLight.position.z.toFixed(5)}`;
 
                 if (pose) {
                     const view = pose.views[0];
