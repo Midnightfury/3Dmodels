@@ -205,10 +205,18 @@
                 document.querySelector("#content-direction").innerHTML = `X = ${(lightEstimate.primaryLightDirection.x).toFixed(5)}, Y = ${(lightEstimate.primaryLightDirection.y).toFixed(5)}, Z = ${(lightEstimate.primaryLightDirection.z).toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
                 directionalLight.intensity = ((0.299 * lightEstimate.primaryLightIntensity.x) + (0.587 * lightEstimate.primaryLightIntensity.y) + (0.114 * lightEstimate.primaryLightIntensity.z)) / 3;
-                directionalLight.position.set((1 + lightEstimate.primaryLightDirection.x), (1 + lightEstimate.primaryLightDirection.y), (-1 + lightEstimate.primaryLightDirection.z));
 
-                document.querySelector("#directional-light-value").innerHTML = `directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
-                document.querySelector("#directional-light-vector3").innerHTML = `directional Light Vector3 : ${directionalLight.position.x.toFixed(5)}, ${directionalLight.position.y.toFixed(5)}, ${directionalLight.position.z.toFixed(5)}`;
+                if (lightEstimate.primaryLightDirection.x < 0) {
+                    directionalLight.position.x = -1 + lightEstimate.primaryLightDirection.x;
+                }
+                else {
+                    directionalLight.position.x = 1 + lightEstimate.primaryLightDirection.x;
+                }
+                directionalLight.position.y = 0.75 + lightEstimate.primaryLightDirection.y;
+                directionalLight.position.z = -1 + lightEstimate.primaryLightDirection.z;
+
+                document.querySelector("#directional-light-value").innerHTML = `Directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
+                document.querySelector("#directional-light-vector3").innerHTML = `Directional Light Vector3 : ${directionalLight.position.x.toFixed(5)}, ${directionalLight.position.y.toFixed(5)}, ${directionalLight.position.z.toFixed(5)}`;
 
                 if (pose) {
                     const view = pose.views[0];
