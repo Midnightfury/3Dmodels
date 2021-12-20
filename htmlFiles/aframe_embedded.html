@@ -2,85 +2,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--A-FRAME CDN-->
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
 
     <!--Custom Script-->
     <script>
-        AFRAME.registerComponent('model-viewer', {
-            init: function() {
-                var el = this.el;
-
-                el.setAttribute('renderer', {
-                    colorManagement: true
-                });
-                el.setAttribute('webxr', {
-                    optionalFeatures: 'hit-test, local-floor'
-                });
-
-                this.cameraEl = document.getElementById("camera");
-
-                this.onEnterVR = this.onEnterVR.bind(this);
-                this.onExitVR = this.onExitVR.bind(this);
-
-                this.onOrientationChange = this.onOrientationChange.bind(this);
-
-                window.addEventListener('orientationchange', this.onOrientationChange);
-
-                document.addEventListener('touchend', this.onTouchEnd);
-                document.addEventListener('touchmove', this.onTouchMove);
-
-                this.el.sceneEl.addEventListener('enter-vr', this.onEnterVR);
-                this.el.sceneEl.addEventListener('exit-vr', this.onExitVR);
-            },
-            onOrientationChange: function() {
-                if (AFRAME.utils.device.isLandscape()) {
-                    this.cameraEl.object3D.position.z -= 1;
-                } else {
-                    this.cameraEl.object3D.position.z += 1;
-                }
-            },
-            onEnterVR: function() {
-                var cameraEl = this.cameraEl;
-
-                this.cameraRigPosition = cameraEl.object3D.position.clone();
-                this.cameraRigRotation = cameraEl.object3D.rotation.clone();
-
-                debugger;
-                if (!this.el.sceneEl.is('ar-mode')) {
-                    cameraEl.object3D.position.set(0, 0, 2);
-                } else {
-                    cameraEl.object3D.position.set(0, 0, 0);
-                }
-            },
-
-            onExitVR: function() {
-                var cameraEl = this.cameraEl;
-
-                cameraEl.object3D.position.copy(this.cameraRigPosition);
-                cameraEl.object3D.rotation.copy(this.cameraRigRotation);
-
-                cameraEl.object3D.rotation.set(0, 0, 0);
-            },
-
-
-        });
-
-        AFRAME.registerComponent('touch-movement', {
-            init: function() {
+        AFRAME.registerComponent("touch-movement", {
+            init: function () {
                 this.onTouchMove = this.onTouchMove.bind(this);
                 this.onTouchEnd = this.onTouchEnd.bind(this);
 
-                document.addEventListener('touchend', this.onTouchEnd);
-                document.addEventListener('touchmove', this.onTouchMove);
+                document.addEventListener("touchend", this.onTouchEnd);
+                document.addEventListener("touchmove", this.onTouchMove);
             },
-            onTouchMove: function(evt) {
+            onTouchMove: function (evt) {
                 if (evt.touches.length === 1) {
                     this.onSingleTouchMove(evt);
                 }
@@ -88,7 +28,7 @@
                     this.onPinchMove(evt);
                 }
             },
-            onSingleTouchMove: function(evt) {
+            onSingleTouchMove: function (evt) {
                 var dX;
                 var dY;
                 var modelPivotEl = this.el;
@@ -99,7 +39,7 @@
                 dX = this.oldClientX - evt.touches[0].clientX;
                 dY = this.oldClientY - evt.touches[0].clientY;
 
-                modelPivotEl.object3D.rotation.y -= dX / 200;
+                modelPivotEl.object3D.rotation.y -= dX / 50;
                 this.oldClientX = evt.touches[0].clientX;
 
                 modelPivotEl.object3D.rotation.x -= dY / 100;
@@ -108,7 +48,7 @@
                 // Clamp x rotation to [-90,90]
                 modelPivotEl.object3D.rotation.x = Math.min(Math.max(-Math.PI / 2, modelPivotEl.object3D.rotation.x), Math.PI / 2);
             },
-            onPinchMove: function(evt) {
+            onPinchMove: function (evt) {
                 var dX = evt.touches[0].clientX - evt.touches[1].clientX;
                 var dY = evt.touches[0].clientY - evt.touches[1].clientY;
 
@@ -119,184 +59,155 @@
                 var distanceDifference = oldDistance - distance;
                 var modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
 
-                modelScale -= distanceDifference / 500;
+                modelScale -= distanceDifference / 200;
                 // Clamp scale.
-                modelScale = Math.min(Math.max(0.8, modelScale), 2.0);
+                modelScale = Math.min(Math.max(0.3, modelScale), 2.5);
 
                 modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
 
                 this.modelScale = modelScale;
                 this.oldDistance = distance;
             },
-            onTouchEnd: function(evt) {
+            onTouchEnd: function (evt) {
                 this.oldClientX = undefined;
                 this.oldClientY = undefined;
                 if (evt.touches.length < 2) {
                     this.oldDistance = undefined;
                 }
-            }
+            },
         });
 
-        AFRAME.registerComponent('ar-shadows', {
-            schema: {
-                opacity: {
-                    default: 0.3
-                }
+        AFRAME.registerComponent("mouse-movement", {
+            init: function () {
+                this.oldClientX = 0;
+                this.oldClientY = 0;
+                this.modelScale = 1;
+
+                this.onMouseMove = this.onMouseMove.bind(this);
+                this.onMouseWheel = this.onMouseWheel.bind(this);
+
+                document.addEventListener('mousemove', this.onMouseMove);
+                document.addEventListener('wheel', this.onMouseWheel);
             },
-            init: function() {
-                this.el.sceneEl.addEventListener('enter-vr', (ev) => {
-                    this.wasVisible = this.el.getAttribute('visible');
-                    if (this.el.sceneEl.is('ar-mode')) {
-                        this.savedMaterial = this.el.object3D.children[0].material;
-                        this.el.object3D.children[0].material = new THREE.ShadowMaterial();
-                        this.el.object3D.children[0].material.opacity = this.data.opacity;
-                        this.el.setAttribute('visible', true);
-                    }
-                });
-                this.el.sceneEl.addEventListener('exit-vr', (ev) => {
-                    if (this.savedMaterial) {
-                        this.el.object3D.children[0].material = this.savedMaterial;
-                        this.savedMaterial = null;
-                    }
-                    if (!this.wasVisible) this.el.setAttribute('visible', false);
-                });
-            }
-        });
+            onMouseMove: function (evt) {
+                var dX;
+                var dY;
+                var modelPivotEl = this.el;
 
-        AFRAME.registerComponent('ar-hit-test', {
-            schema: {
-                targetEl: {
-                    type: 'selector'
-                }
+                dX = this.oldClientX - evt.clientX;
+                dY = this.oldClientY - evt.clientY;
+
+                modelPivotEl.object3D.rotation.y -= dX / 50;
+                modelPivotEl.object3D.rotation.x -= dY / 100;
+
+                // Clamp x rotation to [-90,90]
+                modelPivotEl.object3D.rotation.x = Math.min(Math.max(-Math.PI / 2, modelPivotEl.object3D.rotation.x), Math.PI / 2);
+
+                this.oldClientX = evt.clientX;
+                this.oldClientY = evt.clientY;
             },
+            onMouseWheel: function (evt) {
+                var modelPivotEl = this.el;
 
-            init: function() {
-                var self = this;
-                var targetEl = this.data.targetEl;
-                this.xrHitTestSource = null;
-                this.viewerSpace = null;
-                this.refSpace = null;
+                var modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
 
-                this.el.sceneEl.renderer.xr.addEventListener(function() {
-                    self.viewerSpace = null;
-                    self.refSpace = null;
-                    self.xrHitTestSource = null;
-                });
+                modelScale -= evt.deltaY / 100;
 
-                this.el.sceneEl.addEventListener('enter-vr', function() {
-                    var el = self.el;
-                    var targetEl = self.data.targetEl;
-                    var session;
+                //Clamp model Scale
+                modelScale = Math.min(Math.max(0.3, modelScale), 2.5);
 
-                    if (!self.el.sceneEl.is('ar-mode')) {
-                        return;
-                    }
+                modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
 
-                    session = self.el.sceneEl.renderer.xr.getSession();
-
-                    self.originalPosition = targetEl.object3D.position.clone();
-                    self.el.object3D.visible = true;
-
-                    session.addEventListener('select', function() {
-                        var position = el.getAttribute('position');
-                        targetEl.setAttribute('position', position);
-                        document.getElementById('light').setAttribute('position', {
-                            x: (position.x - 2),
-                            y: (position.y + 4),
-                            z: (position.z + 2)
-                        });
-                    });
-
-                    session.requestReferenceSpace('viewer').then(function(space) {
-                        self.viewerSpace = space;
-                        session.requestHitTestSource({
-                                space: self.viewerSpace
-                            })
-                            .then(function(hitTestSource) {
-                                self.xrHitTestSource = hitTestSource;
-                            });
-                    });
-
-                    session.requestReferenceSpace('local-floor').then(function(space) {
-                        self.refSpace = space;
-                    });
-                });
-
-                this.el.sceneEl.addEventListener('exit-vr', function() {
-                    if (self.originalPosition) {
-                        targetEl.object3D.position.copy(self.originalPosition);
-                    }
-                    self.el.object3D.visible = false;
-                });
-            },
-
-            tick: function() {
-                var frame;
-                var xrViewerPose;
-                var hitTestResults;
-                var pose;
-                var inputMat;
-                var position;
-
-                if (this.el.sceneEl.is('ar-mode')) {
-                    if (!this.viewerSpace) {
-                        return;
-                    }
-                    frame = this.el.sceneEl.frame;
-                    if (!frame) {
-                        return;
-                    }
-                    xrViewerPose = frame.getViewerPose(this.refSpace);
-
-                    if (this.xrHitTestSource && xrViewerPose) {
-                        hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
-                        if (hitTestResults.length > 0) {
-                            pose = hitTestResults[0].getPose(this.refSpace);
-
-                            inputMat = new THREE.Matrix4();
-                            inputMat.fromArray(pose.transform.matrix);
-
-                            position = new THREE.Vector3();
-                            position.setFromMatrixPosition(inputMat);
-                            this.el.setAttribute('position', position);
-                        }
-                    }
-                }
+                this.modelScale = modelScale;
             }
         });
     </script>
+    <script defer src="./js/aframe_user_lighting.js"></script>
+    <!--Custom CSS-->
+    <style>
+        .right-move {
+            position: absolute;
+            bottom: 5%;
+            left: 2%;
+            padding: 10px;
+        }
 
-    <title></title>
+        .left-move {
+            position: absolute;
+            bottom: 10%;
+            left: 2%;
+            padding: 10px;
+        }
+
+        .top-move {
+            position: absolute;
+            bottom: 15%;
+            left: 2%;
+            padding: 10px;
+        }
+
+        .front-move {
+            position: absolute;
+            bottom: 20%;
+            left: 2%;
+            padding: 10px;
+        }
+
+        .right-move,
+        .left-move,
+        .top-move,
+        .front-move {
+            background-color: #121414;
+            border: 2px #2bdada;
+            border-radius: 12px;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 9px;
+            margin: 2px 2px;
+        }
+    </style>
+    <title>Aframe 360 viewer</title>
 </head>
 
 <body>
-    <a-scene vr-mode-ui="enabled: true" model-viewer>
+    <a-scene timeout="30000" vr-mode-ui="enabled: false" style="background-color: rgba(131, 125, 125, 0.719);">
         <a-assets>
-            <a-asset-item id="office_chair" src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf"></a-asset-item>
-            <a-asset-item id="reticle" src="https://cdn.aframe.io/examples/ar/models/reticle/reticle.gltf" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+            <a-asset-item id="office_chair"
+                src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf">
+            </a-asset-item>
+            <a-asset-item id="reticle" src="https://cdn.aframe.io/examples/ar/models/reticle/reticle.gltf"
+                response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         </a-assets>
 
-        <a-camera id="camera" rotation="0 0 0" position="0 0.5 3" raycaster="objects: .cantap" cursor="fuse: false; rayOrigin: mouse;" look-controls="enabled: false;"></a-camera>
-
-        <a-entity light="type: directional;
-                        castShadow: true;
-                        intensity: 0.8; 
-                        shadowCameraTop: 7;
-                        shadowMapHeight: 1024; 
-                        shadowMapWidth: 1024;
-                        target: #modelPivot;" position="-2 4 2" shadow>
-        </a-entity>
-        <a-light type="ambient" intensity="1"></a-light>
-
-        <a-entity id="modelPivot" class="cantap" touch-movement>
-            <a-entity id="model" gltf-model="#office_chair" scale="2 2 2" position="0 0 0" shadow="cast: true; receive: false"></a-entity>
-            <a-entity rotation="-90 0 0" geometry="primitive: plane; width: 30.0; height: 30.0;" shadow="receive: true;" ar-shadows="opacity: 0.2" visible="false"></a-entity>
+        <a-entity id="camera" camera="active: true" look-controls="enabled: false;" rotation="0 0 0" position="0 0.7 3">
         </a-entity>
 
-        <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test="targetEl: #modelPivot" visible="false"></a-entity>
+        <a-light type="ambient" intensity="0.4"></a-light>
+        <a-entity id="directional-light"
+            light="type: directional; castShadow: true; intensity: 1.1; shadowCameraVisible: true; shadowCameraTop: 7; shadowMapHeight: 1024;  shadowMapWidth: 1024;"
+            position="2 2 0" user-controlled-lighting>
+        </a-entity>
 
-        <!--<a-plane id="ground" rotation="-90 0 0" width="1000" height="1000" material="shader: shadow" shadow geometry></a-plane>-->
+        <a-entity id="modelPivot" touch-movement mouse-movement>
+            <!--<a-entity id="model" gltf-model="#office_chair" scale="1.7 1.7 1.7" position="0 0 0" rotation="0 0 0"
+                shadow="cast: true; receive: false"
+                animation="property: rotation; to: 0 360 0; loop: true; delay: 2000; duration: 1000; easing: easeInOutSine">
+            </a-entity>-->
+            <a-entity id="model" gltf-model="#office_chair" scale="2.3 2.3 2.3" position="0 0 0" rotation="0 0 0"
+                shadow="cast: true; receive: false"></a-entity>
+            <a-entity rotation="-90 0 0" geometry="primitive: plane; width: 30.0; height: 30.0;"
+                shadow="cast: false; receive: true" visible="false"></a-entity>
+        </a-entity>
+
+        <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" visible="false"></a-entity>
     </a-scene>
+    <button type="button" class="right-move" id="move-light-right">Move Light Right</button>
+    <button type="button" class="left-move" id="move-light-left">Move Light Left</button>
+    <button type="button" class="top-move" id="move-light-top">Move Light Top</button>
+    <button type="button" class="front-move" id="move-light-front">Move Light Front</button>
 </body>
 
 </html>
