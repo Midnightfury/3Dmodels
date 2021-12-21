@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Bootstrap & jQuery CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--Font Awesome CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--model-viewer google pkg-->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <!--Custom Scripts(JS) and CSS files-->
+    <script>
+        const DATE_ID = 'date';
+
+        const publishDate = () => {
+            var date = new Date();
+            document.getElementById(DATE_ID).innerHTML = `${date.toLocaleDateString('en-US', { month: 'long' })} ${date.toLocaleDateString('en-US', { day: 'numeric' })}, ${date.toLocaleDateString('en-US', { year: 'numeric' })}`
+        };
+
+        window.onload = publishDate;
+    </script>
+    <style>
+        #inline-ar {
+            position: relative;
+            display: block;
+            max-width: 500px;
+            max-height: 675px;
+            height: 640px;
+            margin: 0 auto;
+        }
+
+        model-viewer {
+            background-color: #eee;
+            overflow-x: hidden;
+            width: 100%;
+            height: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .AR-btn {
+            background-image: url(https://modelviewer.dev/assets/ic_view_in_ar_new_googblue_48dp.png);
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            background-position: 12px 50%;
+            background-color: #fff;
+            position: absolute;
+            top: 2%;
+            left: 80%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            bottom: 132px;
+            padding: 0px 16px 0px 40px;
+            font-family: Roboto Regular, Helvetica Neue, sans-serif;
+            font-size: 14px;
+            color: #4285f4;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 18px;
+            border: 1px solid #dadce0;
+        }
+
+        .dim {
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.8);
+            display: block;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            max-width: 128px;
+            overflow-wrap: break-word;
+            padding: 0.5em 1em;
+            position: absolute;
+            width: max-content;
+            height: max-content;
+            transform: translate3d(-50%, -50%, 0);
+            --min-hotspot-opacity: 0;
+            --max-hotspot-opacity: 0.7;
+        }
+
+        .lighting-selection {
+            position: relative;
+            margin-top: 5px;
+            margin-left: 7px;
+            padding-left: 10px;
+            transition: margin-left 0.5s;
+        }
+
+        .lighting-options {
+            position: fixed;
+            height: 600px;
+            width: 0;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgba(78, 75, 75, 0.8);
+            overflow-x: hidden;
+            padding-top: 50px;
+            transition: 0.5s;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 0;
+            right: 5%;
+        }
+
+        .lighting {
+            max-width: 60px;
+            margin-left: 15px;
+            padding-left: 10px;
+            display: block;
+        }
+
+        body {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            width: 95%;
+            height: 95%;
+            font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+                "Lucida Sans", Arial, sans-serif;
+        }
+
+        .author {
+            margin: 0px;
+            font-weight: 600;
+            font-size: large;
+            font-style: oblique;
+        }
+
+        #date {
+            font-weight: 200;
+            font-style: italic;
+        }
+
+        .content {
+            padding: 0px 2em;
+        }
+
+        .content h1 {
+            font-size: 4em;
+            font-style: italic;
+            margin-top: 0.2em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.5em;
+        }
+    </style>
+    <title>Model Viewer</title>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Ergonomic Office Chair</h1>
+
+        <p class="author">TietoEVRY Inline AR example</p>
+
+        <p><span id="date"></span></p>
+        <p>
+            An office chair, or desk chair, is a type of chair that is designed for use at a desk in an office. It is
+            usually a
+            swivel chair, with a set of wheels for mobility and adjustable height. Modern office chairs typically use a
+            single,
+            distinctive load bearing leg (often called a gas lift), which is positioned underneath the chair seat. Near
+            the floor
+            this leg spreads out into several smaller feet, which are often wheeled and called casters. Office chairs
+            were developed
+            around the mid-19th century as more workers spent their shifts sitting at a desk, leading to the adoption of
+            several
+            features not found on other chairs.
+        </p>
+
+        <p>
+            The concept of a height-adjustable, swivelling chair with castors was illustrated by the Nuremberg patrician
+            Martin
+            Löffelholz von Kolberg in his 1505 technological illuminated manuscript, the so-called Löffelholz Codex, on
+            folio
+            10r. One of the earliest known innovators to have created the modern office chair was naturalist Charles
+            Darwin, who
+            put wheels on the chair in his study so he could get to his specimens more quickly
+        </p>
+    </div>
+    <div id="inline-ar">
+        <model-viewer ar ar-modes="webxr scene-viewer quick-look" quick-look-browsers="safari chrome"
+            camera-orbit="-20deg 65deg auto" orientation="0 0 0"
+            ios-src="https://cdn.glitch.com/49721bba-e457-4722-a790-a1c75ed5184e%2FOffice_chair.usdz?v=1632226475318"
+            src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf"
+            alt="A 3D model of an Office Chair" shadow-intensity="2" shadow-softness="1"
+            environment-image="https://midnightfury.github.io/3Dmodels/htmlFiles/assets/sunny_image_1608827841.hdr"
+            camera-controls auto-rotate auto-rotate-delay="2000" rotation-per-second="30deg" id="model-viewer">
+            <button slot="ar-button" class="AR-btn">Activate AR</button>
+
+            <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
+            <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
+
+            <div class="lighting-options">
+                <a href="javascript:void(0)" class="close-button"><i class="fa fa-angle-double-left"
+                        style="font-size: 36px;color: rgba(255, 0, 0, 0.8);"></i></a>
+                <div class="lighting" id="sunny">
+                    <span>
+                        <img src="https://midnightfury.github.io/3Dmodels/htmlFiles/assets/Sunny_lighting.png"
+                            style="width: 40px;height: 35px;" alt="Sunny Lighting">
+                        <p style="color: rgba(231, 98, 98, 0.8);">SUNNY</p>
+                    </span>
+                </div>
+                <div class="lighting" id="cloudy">
+                    <span>
+                        <img src="https://midnightfury.github.io/3Dmodels/htmlFiles/assets/Cloudy_lighting.png"
+                            style="width: 40px;height: 35px;" alt="Cloudy Lighting">
+                        <p style="color: rgba(231, 98, 98, 0.8);">CLOUDY</p>
+                    </span>
+                </div>
+                <div class="lighting" id="indoors">
+                    <span>
+                        <img src="https://midnightfury.github.io/3Dmodels/htmlFiles/assets/Indoors_lighting.png"
+                            style="width: 40px;height: 35px;" alt="Indoor Lighting">
+                        <p style="color: rgba(231, 98, 98, 0.8);">INDOOR</p>
+                    </span>
+                </div>
+            </div>
+            <button class="lighting-selection btn btn-primary btn-sm">Lighting</button>
+        </model-viewer>
+    </div>
+    <div class="content">
+        <p>
+            With the advent of rail transport in the mid-19th century, businesses began to expand beyond the traditional
+            model of a
+            family business with little emphasis on administration. The additional administrative staff was required to
+            keep up with
+            orders, bookkeeping, and correspondence as businesses expanded their service areas. While office work was
+            expanding, an
+            awareness of office environments, technology, and equipment became part of the cultural focus on increasing
+            productivity. This awareness gave rise to chairs designed specifically for these new administrative
+            employees: office
+            chairs. This caught the attention of Otto von Bismarck, who is credited with popularizing the office chair
+            by
+            distributing them throughout parliament during his time in office. American inventor Thomas E. Warren (b.
+            1808),
+            designed the Centripetal Spring Armchair in 1849 which was produced by the American Chair Company in Troy,
+            New York.
+            It was first presented at the 1851 Great Exhibition in London. It was only around 1850 when a group of
+            engineers in
+            the United States began to investigate how chairs could improve health and relaxation by stressing posture
+            and movement.
+        </p>
+
+        <p>
+            The office chair was strategically designed to increase the productivity of clerical employees by making it
+            possible for
+            them to remain sitting at their desks for long periods of time. A swiveling chair with casters allowed
+            employees to
+            remain sitting and yet reach a number of locations within their work area, eliminating the time and energy
+            expended in
+            standing. The wooden saddle seat was designed to fit and support the body of a sitting employee, and the
+            slatted back
+            and armrests provided additional support to increase the employee’s comfort. Like modern chairs, many of
+            these models
+            were somewhat adjustable to provide the maximum comfort and thus the maximum working time.
+        </p>
+    </div>
+    <script type="module">
+        const modelViewer = document.querySelector("#model-viewer");
+
+        modelViewer.addEventListener("load", function () {
+            const center = modelViewer.getCameraTarget();
+            const size = modelViewer.getDimensions();
+
+            const x2 = size.x / 2;
+            const y2 = size.y / 2;
+            const z2 = size.z / 2;
+
+            modelViewer.updateHotspot({
+                name: "hotspot-dim+X-Y",
+                position: `${center.x + x2} ${center.y - y2} ${center.z}`,
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+X-Y"]').textContent = `${(
+                size.z * 100
+            ).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: "hotspot-dim+X-Z",
+                position: `${center.x + x2} ${center.y} ${center.z - z2}`,
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+X-Z"]').textContent = `${(
+                size.y * 100
+            ).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: "hotspot-dim+Y-Z",
+                position: `${center.x} ${center.y + y2} ${center.z - z2}`,
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+Y-Z"]').textContent = `${(
+                size.x * 100
+            ).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: "hotspot-dim-X-Z",
+                position: `${center.x - x2} ${center.y} ${center.z - z2}`,
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim-X-Z"]').textContent = `${(
+                size.y * 100
+            ).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: "hotspot-dim-X-Y",
+                position: `${center.x - x2} ${center.y - y2} ${center.z}`,
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim-X-Y"]').textContent = `${(
+                size.z * 100
+            ).toFixed(0)} cm`;
+        });
+
+        const lightingSelection = document.querySelector(".lighting-selection");
+        const lightingOptions = document.querySelector(".lighting-options");
+        const closeButton = document.querySelector(".close-button");
+
+        lightingSelection.addEventListener("click", function () {
+            lightingOptions.style.width = "150px";
+            lightingSelection.style.marginLeft = "160px";
+        });
+
+        closeButton.addEventListener("click", function () {
+            lightingOptions.style.width = "0px";
+            lightingSelection.style.marginLeft = "7px";
+        });
+
+        const sunnyLightingControl = document.querySelector("#sunny");
+        const cloudyLightingControl = document.querySelector("#cloudy");
+        const indoorLightingControl = document.querySelector("#indoors");
+
+        sunnyLightingControl.addEventListener("click", () => {
+            //console.log("sunny");
+            modelViewer.setAttribute(
+                "environment-image",
+                "https://midnightfury.github.io/3Dmodels/htmlFiles/assets/sunny_image_1608827841.hdr"
+            );
+        });
+
+        cloudyLightingControl.addEventListener("click", () => {
+            //console.log("cloudy");
+            modelViewer.setAttribute(
+                "environment-image",
+                "https://midnightfury.github.io/3Dmodels/htmlFiles/assets/cloudy_image_1608827841.hdr"
+            );
+        });
+        indoorLightingControl.addEventListener("click", () => {
+            //console.log("indoors");
+            modelViewer.setAttribute(
+                "environment-image",
+                "https://midnightfury.github.io/3Dmodels/htmlFiles/assets/indoors_image_1608827841.hdr"
+            );
+        });
+    </script>
+</body>
+
+</html>
