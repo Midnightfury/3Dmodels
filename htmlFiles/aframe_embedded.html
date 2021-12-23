@@ -122,51 +122,18 @@
             }
         });
     </script>
-    <script defer src="./js/aframe_user_lighting.js"></script>
+    <script defer src="./js/aframe_user_angular_lighting.js"></script>
     <!--Custom CSS-->
     <style>
-        .right-move {
+        .angular-light-slider {
             position: absolute;
-            bottom: 5%;
-            left: 2%;
-            padding: 10px;
+            top: 2%;
+            right: 2%;
         }
 
-        .left-move {
-            position: absolute;
-            bottom: 10%;
-            left: 2%;
-            padding: 10px;
-        }
-
-        .top-move {
-            position: absolute;
-            bottom: 15%;
-            left: 2%;
-            padding: 10px;
-        }
-
-        .front-move {
-            position: absolute;
-            bottom: 20%;
-            left: 2%;
-            padding: 10px;
-        }
-
-        .right-move,
-        .left-move,
-        .top-move,
-        .front-move {
-            background-color: #121414;
-            border: 2px #2bdada;
-            border-radius: 12px;
-            color: white;
-            padding: 5px;
+        #angular-text {
+            margin: 2px;
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 9px;
-            margin: 2px 2px;
         }
     </style>
     <title>Aframe 360 viewer</title>
@@ -188,7 +155,7 @@
         <a-light type="ambient" intensity="0.4"></a-light>
         <a-entity id="directional-light"
             light="type: directional; castShadow: true; intensity: 1.1; shadowCameraVisible: false; shadowCameraTop: 7; shadowMapHeight: 1024;  shadowMapWidth: 1024;"
-            position="2 2 0" user-controlled-lighting>
+            position="2 2 0">
         </a-entity>
 
         <a-entity id="modelPivot" touch-movement mouse-movement>
@@ -200,10 +167,12 @@
 
         <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" visible="false"></a-entity>
     </a-scene>
-    <button type="button" class="right-move" id="move-light-right">Move Light Right</button>
-    <button type="button" class="left-move" id="move-light-left">Move Light Left</button>
-    <button type="button" class="top-move" id="move-light-top">Move Light Top</button>
-    <button type="button" class="front-move" id="move-light-front">Move Light Front</button>
+    <div class="angular-light-slider">
+        <p id="angular-text">Light Angle: <span id="angle-value"></span></p>
+        <input type="range" min="0" max="360" value="0" step="1" id="light-position">
+        <!--<p>light x-direction: <span id="x-position-value"></span></p>
+        <p>light z-direction: <span id="z-position-value"></span></p>-->
+    </div>
 </body>
 
 </html>
