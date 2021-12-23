@@ -4,7 +4,7 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.134.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/loaders/GLTFLoader.js";
 
 //Custom imports
-import { xCoordinate, zCoordinate } from "./aframe_user_angular_lighting_1";
+import { xCoordinate, zCoordinate } from "./aframe_user_angular_lighting_1.js";
 
 const MAX_OBJECTS = 1;
 let objects = [];
