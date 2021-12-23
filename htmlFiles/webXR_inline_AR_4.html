@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Bootstrap and jQuery CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--Custom Scripts and CSS-->
+    <script>
+        const DATE_ID = 'date';
+
+        const publishDate = () => {
+            var date = new Date();
+            document.getElementById(DATE_ID).innerHTML = `${date.toLocaleDateString('en-US', { month: 'long' })} ${date.toLocaleDateString('en-US', { day: 'numeric' })}, ${date.toLocaleDateString('en-US', { year: 'numeric' })}`
+        };
+
+        window.onload = publishDate;
+    </script>
+    <script defer type="module" src="./js/aframe_user_angular_lighting_1.js"></script>
+    <link rel="stylesheet" href="./css/webXR_inline_AR_4.css">
+    <!--Title-->
+    <title>Inline AR WebXR Demo</title>
+</head>
+
+<body>
+    <div class="content-div">
+        <div class="content">
+            <h1>Ergonomic Office Chair</h1>
+
+            <p class="author">TietoEVRY Inline AR example</p>
+
+            <p><span id="date"></span></p>
+            <p>
+                An office chair, or desk chair, is a type of chair that is designed for use at a desk in an office. It
+                is
+                usually a
+                swivel chair, with a set of wheels for mobility and adjustable height. Modern office chairs typically
+                use a
+                single,
+                distinctive load bearing leg (often called a gas lift), which is positioned underneath the chair seat.
+                Near
+                the floor
+                this leg spreads out into several smaller feet, which are often wheeled and called casters. Office
+                chairs
+                were developed
+                around the mid-19th century as more workers spent their shifts sitting at a desk, leading to the
+                adoption of
+                several
+                features not found on other chairs.
+            </p>
+
+            <p>
+                The concept of a height-adjustable, swivelling chair with castors was illustrated by the Nuremberg
+                patrician
+                Martin
+                Löffelholz von Kolberg in his 1505 technological illuminated manuscript, the so-called Löffelholz Codex,
+                on
+                folio
+                10r. One of the earliest known innovators to have created the modern office chair was naturalist Charles
+                Darwin, who
+                put wheels on the chair in his study so he could get to his specimens more quickly
+            </p>
+        </div>
+        <div id="inline-ar">
+            <a href="./WebXR_worldTracking_4.html" id="startBtn" class="btn btn-primary btn-sm" role="button">Start
+                AR</a>
+            <div class="angular-light-slider">
+                <p id="angular-text">Light Angle: <span id="angle-value"></span></p>
+                <input type="range" min="0" max="360" value="0" step="1" id="light-position">
+            </div>
+            <iframe id="my-iframe" src="./aframe_embedded_3.html"></iframe>
+        </div>
+        <div class="content">
+            <p>
+                With the advent of rail transport in the mid-19th century, businesses began to expand beyond the
+                traditional
+                model of a
+                family business with little emphasis on administration. The additional administrative staff was required
+                to
+                keep up with
+                orders, bookkeeping, and correspondence as businesses expanded their service areas. While office work
+                was
+                expanding, an
+                awareness of office environments, technology, and equipment became part of the cultural focus on
+                increasing
+                productivity. This awareness gave rise to chairs designed specifically for these new administrative
+                employees: office
+                chairs. This caught the attention of Otto von Bismarck, who is credited with popularizing the office
+                chair
+                by
+                distributing them throughout parliament during his time in office. American inventor Thomas E. Warren
+                (b.
+                1808),
+                designed the Centripetal Spring Armchair in 1849 which was produced by the American Chair Company in
+                Troy,
+                New York.
+                It was first presented at the 1851 Great Exhibition in London. It was only around 1850 when a group of
+                engineers in
+                the United States began to investigate how chairs could improve health and relaxation by stressing
+                posture
+                and movement.
+            </p>
+
+            <p>
+                The office chair was strategically designed to increase the productivity of clerical employees by making
+                it
+                possible for
+                them to remain sitting at their desks for long periods of time. A swiveling chair with casters allowed
+                employees to
+                remain sitting and yet reach a number of locations within their work area, eliminating the time and
+                energy
+                expended in
+                standing. The wooden saddle seat was designed to fit and support the body of a sitting employee, and the
+                slatted back
+                and armrests provided additional support to increase the employee’s comfort. Like modern chairs, many of
+                these models
+                were somewhat adjustable to provide the maximum comfort and thus the maximum working time.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
