@@ -1,26 +1,19 @@
 let directionalLight = document.querySelector("#directional-light");
+let lightSlider = document.querySelector("#light-position");
 
-function MoveLightRight() {
-  directionalLight.object3D.position.set(2, 2, 0);
-  console.log(directionalLight.object3D.position);
-}
+let angularValue = document.querySelector("#angle-value");
+//let xDirectionValue = document.querySelector("#x-position-value");
+//let zDirectionValue = document.querySelector("#z-position-value");
 
-function MoveLightLeft() {
-  directionalLight.object3D.position.set(-2, 2, 0);
-  console.log(directionalLight.object3D.position);
-}
+angularValue.innerHTML = lightSlider.value + " deg";
 
-function MoveLightTop() {
-  directionalLight.object3D.position.set(0, 2, 0);
-  console.log(directionalLight.object3D.position);
-}
+lightSlider.oninput = function () {
+  let DegtoRad = this.value * (Math.PI / 180);
 
-function MoveLightFront() {
-  directionalLight.object3D.position.set(0, 1, 2);
-  console.log(directionalLight.object3D.position);
-}
+  directionalLight.object3D.position.x = (2 * Math.cos(DegtoRad)).toFixed(4);
+  directionalLight.object3D.position.z = (2 * Math.sin(DegtoRad)).toFixed(4);
 
-document.querySelector("#move-light-right").addEventListener("click", MoveLightRight);
-document.querySelector("#move-light-left").addEventListener("click", MoveLightLeft);
-document.querySelector("#move-light-top").addEventListener("click", MoveLightTop);
-document.querySelector("#move-light-front").addEventListener("click", MoveLightFront);
+  //xDirectionValue.innerHTML = directionalLight.object3D.position.x;
+  //zDirectionValue.innerHTML = directionalLight.object3D.position.z;
+  angularValue.innerHTML = this.value + " deg";
+};
