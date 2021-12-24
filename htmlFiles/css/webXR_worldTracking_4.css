@@ -1,0 +1,37 @@
+a {
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  text-align: center;
+}
+
+#start-ar {
+  position: absolute;
+  top: 3%;
+  right: 2%;
+}
+
+#object-placement {
+  position: absolute;
+  bottom: 3%;
+  right: 4%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#enable-tracking {
+  position: absolute;
+  bottom: 3%;
+  left: 4%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.angular-light-slider {
+  position: absolute;
+  top: 2%;
+  right: 46%;
+}
+
+#angular-text {
+  margin: 2px;
+  text-align: center;
+}
