@@ -111,14 +111,13 @@ async function activateAR() {
   });
 
   const userControlledLight = document.querySelector("#directional-light");
+  directionalLight.position.x = userControlledLight.object3D.position.x;
+  directionalLight.position.z = userControlledLight.object3D.position.z;
 
   const onXRFrame = (time, frame) => {
     session.requestAnimationFrame(onXRFrame);
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
-
-    directionalLight.position.x = userControlledLight.object3D.position.x;
-    directionalLight.position.z = userControlledLight.object3D.position.z;
 
     const pose = frame.getViewerPose(referenceSpace);
     if (pose) {
