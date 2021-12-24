@@ -12,6 +12,8 @@ async function activateAR() {
   const canvas = document.createElement("canvas");
   document.body.appendChild(canvas);
   const gl = canvas.getContext("webgl", { xrCompatible: true });
+  
+  document.querySelector("#360deg-view").setAttribute("hidden", "true");
 
   const scene = new THREE.Scene();
 
