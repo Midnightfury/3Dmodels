@@ -3,9 +3,6 @@ import * as THREE from "https://cdn.skypack.dev/three@0.134.0";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/loaders/GLTFLoader.js";
 
-//Custom imports
-import { xCoordinate, zCoordinate } from "./aframe_user_angular_lighting_1.js";
-
 const MAX_OBJECTS = 1;
 let objects = [];
 let oldClientX, oldClientY, oldDistance, initialTouchX, initialTouchY;
@@ -50,7 +47,7 @@ async function activateAR() {
 
   const session = await navigator.xr.requestSession("immersive-ar", {
     requiredFeatures: ["hit-test", "dom-overlay"],
-    domOverlay: { root: document.body },
+    domOverlay: { root: document.querySelector("#controls") },
   });
   session.updateRenderState({
     baseLayer: new XRWebGLLayer(session, gl),
@@ -92,6 +89,8 @@ async function activateAR() {
       clone.position.copy(reticle.position);
       scene.add(clone);
 
+      directionalLight.target = clone;
+
       objects.push(clone);
       if (objects.length > MAX_OBJECTS) {
         let oldObject = objects.shift();
@@ -111,14 +110,15 @@ async function activateAR() {
     }
   });
 
-  //Change Directional Light Position
-  directionalLight.position.x = xCoordinate;
-  directionalLight.position.z = zCoordinate;
+  const userControlledLight = document.querySelector("#directional-light");
 
   const onXRFrame = (time, frame) => {
     session.requestAnimationFrame(onXRFrame);
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+
+    directionalLight.position.x = userControlledLight.object3D.position.x;
+    directionalLight.position.z = userControlledLight.object3D.position.z;
 
     const pose = frame.getViewerPose(referenceSpace);
     if (pose) {
