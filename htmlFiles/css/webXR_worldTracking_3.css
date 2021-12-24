@@ -32,8 +32,8 @@ a {
 }
 
 #content-intensity {
-  color: rgba(233, 56, 56, 0.9);
-  background-color: rgba(129, 123, 123, 0.5);
+  color: rgba(255, 0, 0, 0.8);
+  background-color: rgba(115, 209, 209, 0.6);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: 600;
@@ -42,7 +42,7 @@ a {
 
 #content-direction {
   color: rgba(9, 51, 240, 0.8);
-  background-color: rgba(190, 174, 174, 0.5);
+  background-color: rgba(190, 174, 174, 0.6);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: 600;
@@ -50,8 +50,17 @@ a {
 }
 
 #directional-light-value {
-  color: rgba(233, 75, 75, 0.9);
-  background-color: rgba(124, 121, 121, 0.5);
+  color: rgba(240, 9, 9, 0.8);
+  background-color: rgba(243, 234, 234, 0.6);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: x-small;
+  font-weight: 600;
+  border-radius: 7px;
+}
+
+#directional-light-vector3 {
+  color: rgba(240, 9, 9, 0.8);
+  background-color: rgba(243, 234, 234, 0.6);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: 600;
@@ -60,7 +69,7 @@ a {
 
 #depth-info {
   color: rgba(255, 0, 0, 0.8);
-  background-color: rgba(102, 105, 105, 0.5);
+  background-color: rgba(115, 209, 209, 0.6);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: 600;
@@ -69,7 +78,16 @@ a {
 
 #depth-in-meters {
   color: rgba(9, 51, 240, 0.8);
-  background-color: rgba(190, 174, 174, 0.5);
+  background-color: rgba(190, 174, 174, 0.6);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: x-small;
+  font-weight: 600;
+  border-radius: 7px;
+}
+
+#depth-info-matrix-dim {
+  color: rgba(240, 9, 9, 0.8);
+  background-color: rgba(243, 234, 234, 0.6);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: 600;
