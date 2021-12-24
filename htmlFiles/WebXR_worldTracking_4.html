@@ -13,47 +13,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--A-FRAME CDN-->
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <!--Three.js CDN & scripts-->
+    <script src="./js/aframe_components.js"></script>
+    <script defer src="./js/aframe_user_angular_lighting_1.js"></script>
     <script defer type="module" src="./js/webXR_worldTracking_4.js"></script>
     <!--Custom CSS-->
-    <style>
-        a {
-            position: absolute;
-            top: 3%;
-            left: 2%;
-            text-align: center;
-        }
-
-        #start-ar {
-            position: absolute;
-            top: 3%;
-            right: 2%;
-        }
-
-        #object-placement {
-            position: absolute;
-            bottom: 3%;
-            right: 4%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        #enable-tracking {
-            position: absolute;
-            bottom: 3%;
-            left: 4%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/webXR_worldTracking_4.css">
     <title></title>
 </head>
 
 <body>
-    <a href="./webXR_inline_AR_4.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
-            style="color: black; padding-right: 7px;"></i>GO BACK!</a>
-    <button id="start-ar" class="btn btn-primary btn-sm">View in your Space</button>
+    <a-scene timeout="30000" vr-mode-ui="enabled: false" style="background-color: rgba(131, 125, 125, 0.719);">
+        <a-assets>
+            <a-asset-item id="office_chair"
+                src="https://raw.githubusercontent.com/Midnightfury/3Dmodels/main/gltfModels/office_chair/scene.gltf">
+            </a-asset-item>
+            <a-asset-item id="reticle" src="https://cdn.aframe.io/examples/ar/models/reticle/reticle.gltf"
+                response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        </a-assets>
 
-    <button id="object-placement" class="btn btn-info btn-sm">Place Object</button>
-    <button id="enable-tracking" class="btn btn-info btn-sm">Enable Tracking</button>
+        <a-entity id="camera" camera="active: true" look-controls="enabled: false;" rotation="0 0 0" position="0 0.7 3">
+        </a-entity>
+
+        <a-light type="ambient" intensity="0.4"></a-light>
+        <a-entity id="directional-light"
+            light="type: directional; castShadow: true; intensity: 1.1; shadowCameraVisible: false; shadowCameraTop: 7; shadowMapHeight: 1024;  shadowMapWidth: 1024;"
+            position="2 2 0">
+        </a-entity>
+
+        <a-entity id="modelPivot" touch-movement mouse-movement>
+            <a-entity id="model" gltf-model="#office_chair" scale="2.3 2.3 2.3" position="0 0 0" rotation="0 0 0"
+                shadow="cast: true; receive: false"></a-entity>
+            <a-entity rotation="-90 0 0" geometry="primitive: plane; width: 30.0; height: 30.0;"
+                shadow="cast: false; receive: true" visible="false"></a-entity>
+        </a-entity>
+
+        <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" visible="false"></a-entity>
+    </a-scene>
+    <div class="angular-light-slider">
+        <p id="angular-text">Light Angle: <span id="angle-value"></span></p>
+        <input type="range" min="0" max="360" value="0" step="1" id="light-position">
+    </div>
+    <div id="controls">
+        <a href="./webXR_inline_AR_4.html" class="btn btn-danger btn-sm" role="button"><i class="fa fa-chevron-left"
+                style="color: black; padding-right: 7px;"></i>GO BACK!</a>
+        <button id="start-ar" class="btn btn-primary btn-sm" onclick="activateAR()">View in your Space</button>
+
+        <button id="object-placement" class="btn btn-info btn-sm">Place Object</button>
+        <button id="enable-tracking" class="btn btn-info btn-sm">Enable Tracking</button>
+    </div>
 </body>
 
 </html>
