@@ -51,7 +51,7 @@ body {
 }
 
 #date {
-  font-weight: 400;
+  font-weight: 500;
   font-size: medium;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-style: italic;
@@ -71,15 +71,4 @@ body {
 p {
   font-size: 1.1em;
   line-height: 1.5em;
-}
-
-.angular-light-slider {
-  position: absolute;
-  top: 2%;
-  right: 2%;
-}
-
-#angular-text {
-  margin: 2px;
-  text-align: center;
 }
