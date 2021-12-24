@@ -47,7 +47,7 @@ async function activateAR() {
 
   const session = await navigator.xr.requestSession("immersive-ar", {
     requiredFeatures: ["hit-test", "dom-overlay"],
-    domOverlay: { root: document.getElementById("controls") },
+    domOverlay: { root: document.body },
   });
   session.updateRenderState({
     baseLayer: new XRWebGLLayer(session, gl),
