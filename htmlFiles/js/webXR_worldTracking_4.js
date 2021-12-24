@@ -12,8 +12,6 @@ async function activateAR() {
   const canvas = document.createElement("canvas");
   document.body.appendChild(canvas);
   const gl = canvas.getContext("webgl", { xrCompatible: true });
-  
-  document.querySelector("#360deg-view").setAttribute("hidden", "true");
 
   const scene = new THREE.Scene();
 
@@ -49,7 +47,7 @@ async function activateAR() {
 
   const session = await navigator.xr.requestSession("immersive-ar", {
     requiredFeatures: ["hit-test", "dom-overlay"],
-    domOverlay: { root: document.body },
+    domOverlay: { root: document.getElementById("controls") },
   });
   session.updateRenderState({
     baseLayer: new XRWebGLLayer(session, gl),
