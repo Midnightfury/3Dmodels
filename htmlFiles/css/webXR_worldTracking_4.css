@@ -28,10 +28,17 @@ a {
 .angular-light-slider {
   position: absolute;
   top: 2%;
-  right: 41%;
+  right: 42%;
 }
 
 #angular-text {
   margin: 2px;
   text-align: center;
+}
+
+.embedded-scene {
+  width: 400px;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
