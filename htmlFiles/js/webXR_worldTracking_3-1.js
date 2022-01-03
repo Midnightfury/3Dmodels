@@ -12,6 +12,17 @@ async function activateAR() {
   document.body.appendChild(canvas);
   const gl = canvas.getContext("webgl", { xrCompatible: true });
 
+  const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    preserveDrawingBuffer: true,
+    canvas: canvas,
+    context: gl,
+  });
+  renderer.shadowMap.enabled = true;
+  //renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.autoClear = false;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+
   const scene = new THREE.Scene();
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
@@ -19,13 +30,13 @@ async function activateAR() {
   directionalLight.castShadow = true;
   scene.add(directionalLight);
 
-  directionalLight.shadow.mapSize.width = 512;
+  /*directionalLight.shadow.mapSize.width = 512;
   directionalLight.shadow.mapSize.height = 512;
   directionalLight.shadow.camera.near = 0.1;
   directionalLight.shadow.camera.near = 500;
-  directionalLight.shadow.focus = 1;
+  directionalLight.shadow.focus = 1;*/
 
-  const planeGeometry = new THREE.PlaneGeometry(20, 20, 32, 32);
+  const planeGeometry = new THREE.PlaneGeometry(5, 5);
   planeGeometry.rotateX(-Math.PI / 2);
 
   const planeMaterial = new THREE.MeshStandardMaterial({
@@ -38,15 +49,6 @@ async function activateAR() {
   shadowPlane.receiveShadow = true;
   shadowPlane.position.y = 10000;
   scene.add(shadowPlane);
-
-  const renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    preserveDrawingBuffer: true,
-    canvas: canvas,
-    context: gl,
-  });
-  renderer.autoClear = false;
-  renderer.outputEncoding = THREE.sRGBEncoding;
 
   const camera = new THREE.PerspectiveCamera();
   camera.matrixAutoUpdate = false;
@@ -111,7 +113,7 @@ async function activateAR() {
         scene.remove(oldObject);
       }
 
-      shadowPlane.position.y = clone.position.y - 2;
+      shadowPlane.position.y = clone.position.y;
     }
     reticle.visible = false;
     visibleReticle = false;
