@@ -19,7 +19,7 @@ async function activateAR() {
     context: gl,
   });
   renderer.shadowMap.enabled = true;
-  //renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.autoClear = false;
   renderer.outputEncoding = THREE.sRGBEncoding;
 
@@ -30,19 +30,19 @@ async function activateAR() {
   directionalLight.castShadow = true;
   scene.add(directionalLight);
 
-  /*directionalLight.shadow.mapSize.width = 512;
+  directionalLight.shadow.mapSize.width = 512;
   directionalLight.shadow.mapSize.height = 512;
   directionalLight.shadow.camera.near = 0.1;
   directionalLight.shadow.camera.near = 500;
-  directionalLight.shadow.focus = 1;*/
+  directionalLight.shadow.focus = 1;
 
-  const planeGeometry = new THREE.PlaneGeometry(5, 5);
+  const planeGeometry = new THREE.PlaneGeometry(2, 2);
   planeGeometry.rotateX(-Math.PI / 2);
 
   const planeMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.2,
   });
 
   const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
