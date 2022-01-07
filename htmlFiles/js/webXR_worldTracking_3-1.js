@@ -145,9 +145,9 @@ async function activateAR() {
     //Light direction
     //x-direction
     if (lightEstimate.primaryLightDirection.x < 0) {
-      directionalLight.position.x = -0.75 + lightEstimate.primaryLightDirection.x;
+      directionalLight.position.x = -0.7 + lightEstimate.primaryLightDirection.x;
     } else {
-      directionalLight.position.x = 0.75 + lightEstimate.primaryLightDirection.x;
+      directionalLight.position.x = 0.7 + lightEstimate.primaryLightDirection.x;
     }
     //z-direction
     if (lightEstimate.primaryLightDirection.z < 0) {
@@ -156,7 +156,7 @@ async function activateAR() {
       directionalLight.position.z = 0.3 + lightEstimate.primaryLightDirection.z;
     }
     //y-direction
-    directionalLight.position.y = 0.5 + lightEstimate.primaryLightDirection.y;
+    directionalLight.position.y = 0.4 + lightEstimate.primaryLightDirection.y;
 
     document.querySelector("#directional-light-value").innerHTML = `Directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
     document.querySelector("#directional-light-vector3").innerHTML = `Directional Light Position: ${directionalLight.position.x.toFixed(5)}, ${directionalLight.position.y.toFixed(5)}, ${directionalLight.position.z.toFixed(5)}`;
