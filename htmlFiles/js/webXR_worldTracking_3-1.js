@@ -42,7 +42,7 @@ async function activateAR() {
   const planeMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     transparent: true,
-    opacity: 0.65,
+    opacity: 0.45,
   });
 
   const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
