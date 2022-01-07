@@ -36,13 +36,13 @@ async function activateAR() {
   directionalLight.shadow.camera.near = 500;
   directionalLight.shadow.focus = 1;*/
 
-  const planeGeometry = new THREE.PlaneGeometry(2, 2);
+  const planeGeometry = new THREE.PlaneGeometry(7, 7);
   planeGeometry.rotateX(-Math.PI / 2);
 
   const planeMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     transparent: true,
-    opacity: 0.2,
+    opacity: 0.65,
   });
 
   const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -114,7 +114,7 @@ async function activateAR() {
       }
 
       shadowPlane.position.y = clone.position.y - 1;
-      shadowPlane.position.z = clone.position.z;
+      shadowPlane.position.z = clone.position.z - 2;
       shadowPlane.position.x = clone.position.x;
     }
     reticle.visible = false;
