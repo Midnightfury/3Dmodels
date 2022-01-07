@@ -18,8 +18,8 @@ async function activateAR() {
     canvas: canvas,
     context: gl,
   });
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  //renderer.shadowMap.enabled = true;
+  //renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.autoClear = false;
   renderer.outputEncoding = THREE.sRGBEncoding;
 
