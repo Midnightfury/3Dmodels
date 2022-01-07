@@ -113,7 +113,9 @@ async function activateAR() {
         scene.remove(oldObject);
       }
 
-      shadowPlane.position.y = clone.position.y-1;
+      shadowPlane.position.y = clone.position.y - 1;
+      shadowPlane.position.z = clone.position.z;
+      shadowPlane.position.x = clone.position.x;
     }
     reticle.visible = false;
     visibleReticle = false;
