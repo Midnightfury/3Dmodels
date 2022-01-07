@@ -28,6 +28,7 @@ async function activateAR() {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
   directionalLight.position.set(-2, 2, 0);
   directionalLight.castShadow = true;
+  directionalLight.receiveShadow = false;
   scene.add(directionalLight);
 
   /*directionalLight.shadow.mapSize.width = 512;
@@ -36,16 +37,17 @@ async function activateAR() {
   directionalLight.shadow.camera.near = 500;
   directionalLight.shadow.focus = 1;*/
 
-  const planeGeometry = new THREE.PlaneGeometry(7, 7);
+  const planeGeometry = new THREE.PlaneGeometry(1, 1);
   planeGeometry.rotateX(-Math.PI / 2);
 
   const planeMaterial = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
+    color: 0xeedddd,
     transparent: true,
-    opacity: 0.45,
+    opacity: 0.15,
   });
 
   const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+  shadowPlane.castShadow = false;
   shadowPlane.receiveShadow = true;
   shadowPlane.position.y = 10000;
   scene.add(shadowPlane);
@@ -113,7 +115,7 @@ async function activateAR() {
         scene.remove(oldObject);
       }
 
-      shadowPlane.position.y = clone.position.y - 1;
+      shadowPlane.position.y = clone.position.y - 2.5;
       shadowPlane.position.z = clone.position.z - 2;
       shadowPlane.position.x = clone.position.x;
     }
