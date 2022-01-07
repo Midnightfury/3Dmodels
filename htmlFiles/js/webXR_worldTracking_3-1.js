@@ -30,11 +30,11 @@ async function activateAR() {
   directionalLight.castShadow = true;
   scene.add(directionalLight);
 
-  directionalLight.shadow.mapSize.width = 512;
+  /*directionalLight.shadow.mapSize.width = 512;
   directionalLight.shadow.mapSize.height = 512;
   directionalLight.shadow.camera.near = 0.1;
   directionalLight.shadow.camera.near = 500;
-  directionalLight.shadow.focus = 1;
+  directionalLight.shadow.focus = 1;*/
 
   const planeGeometry = new THREE.PlaneGeometry(2, 2);
   planeGeometry.rotateX(-Math.PI / 2);
@@ -113,7 +113,7 @@ async function activateAR() {
         scene.remove(oldObject);
       }
 
-      shadowPlane.position.y = clone.position.y;
+      shadowPlane.position.y = clone.position.y-1;
     }
     reticle.visible = false;
     visibleReticle = false;
