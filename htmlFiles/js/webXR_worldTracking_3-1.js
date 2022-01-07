@@ -25,7 +25,7 @@ async function activateAR() {
 
   const scene = new THREE.Scene();
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
   directionalLight.position.set(-2, 2, 0);
   directionalLight.castShadow = true;
   directionalLight.receiveShadow = false;
@@ -43,7 +43,7 @@ async function activateAR() {
   const planeMaterial = new THREE.MeshStandardMaterial({
     color: 0xeedddd,
     transparent: true,
-    opacity: 0.15,
+    opacity: 0.5,
   });
 
   const shadowPlane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -72,7 +72,6 @@ async function activateAR() {
   const hitTestSource = await session.requestHitTestSource({
     space: viewerSpace,
   });
-
   const lightProbe = await session.requestLightProbe();
 
   document.querySelector("#depth-info").innerHTML = `depth-usage: ${session.depthUsage} & depth Data Format: ${session.depthDataFormat}`;
@@ -116,7 +115,7 @@ async function activateAR() {
       }
 
       shadowPlane.position.y = clone.position.y - 2.5;
-      shadowPlane.position.z = clone.position.z - 2;
+      shadowPlane.position.z = clone.position.z - 0.5;
       shadowPlane.position.x = clone.position.x;
     }
     reticle.visible = false;
@@ -141,14 +140,23 @@ async function activateAR() {
     document.querySelector("#content-intensity").innerHTML = `R = ${lightEstimate.primaryLightIntensity.x.toFixed(5)}, G = ${lightEstimate.primaryLightIntensity.y.toFixed(5)}, B = ${lightEstimate.primaryLightIntensity.z.toFixed(5)}, W = ${lightEstimate.primaryLightIntensity.w}`;
     document.querySelector("#content-direction").innerHTML = `X = ${lightEstimate.primaryLightDirection.x.toFixed(5)}, Y = ${lightEstimate.primaryLightDirection.y.toFixed(5)}, Z = ${lightEstimate.primaryLightDirection.z.toFixed(5)}, W = ${lightEstimate.primaryLightDirection.w}`;
 
+    //Light intensity
     directionalLight.intensity = (0.299 * lightEstimate.primaryLightIntensity.x + 0.587 * lightEstimate.primaryLightIntensity.y + 0.114 * lightEstimate.primaryLightIntensity.z) / 3;
+    //Light direction
+    //x-direction
     if (lightEstimate.primaryLightDirection.x < 0) {
-      directionalLight.position.x = -1 + lightEstimate.primaryLightDirection.x;
+      directionalLight.position.x = -0.75 + lightEstimate.primaryLightDirection.x;
     } else {
-      directionalLight.position.x = 1 + lightEstimate.primaryLightDirection.x;
+      directionalLight.position.x = 0.75 + lightEstimate.primaryLightDirection.x;
     }
-    directionalLight.position.y = 0.75 + lightEstimate.primaryLightDirection.y;
-    directionalLight.position.z = -0.5 + lightEstimate.primaryLightDirection.z;
+    //z-direction
+    if (lightEstimate.primaryLightDirection.z < 0) {
+      directionalLight.position.z = -0.3 + lightEstimate.primaryLightDirection.z;
+    } else {
+      directionalLight.position.z = 0.3 + lightEstimate.primaryLightDirection.z;
+    }
+    //y-direction
+    directionalLight.position.y = 0.5 + lightEstimate.primaryLightDirection.y;
 
     document.querySelector("#directional-light-value").innerHTML = `Directional Light intensity: ${directionalLight.intensity.toFixed(5)}`;
     document.querySelector("#directional-light-vector3").innerHTML = `Directional Light Position: ${directionalLight.position.x.toFixed(5)}, ${directionalLight.position.y.toFixed(5)}, ${directionalLight.position.z.toFixed(5)}`;
